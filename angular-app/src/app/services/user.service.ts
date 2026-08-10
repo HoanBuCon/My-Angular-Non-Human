@@ -9,50 +9,52 @@ export interface User {
   avatar: string;
 }
 
-const STORAGE_KEY = 'vss_users_list';
+const STORAGE_KEY = 'vss_users_list_v4';
+
+const DEFAULT_AVATAR = '/assets/pages/user-management/cang_endmin.jpg';
 
 const SEED_USERS: User[] = [
   {
     id: 1,
-    email: 'george.bluth@reqres.in',
-    first_name: 'George',
-    last_name: 'Bluth',
-    avatar: 'https://reqres.in/img/faces/1-image.jpg'
+    email: 'an.nguyen@vss.vn',
+    first_name: 'An',
+    last_name: 'Nguyễn Văn',
+    avatar: DEFAULT_AVATAR
   },
   {
     id: 2,
-    email: 'janet.weaver@reqres.in',
-    first_name: 'Janet',
-    last_name: 'Weaver',
-    avatar: 'https://reqres.in/img/faces/2-image.jpg'
+    email: 'binh.tran@vss.vn',
+    first_name: 'Bình',
+    last_name: 'Trần Thị',
+    avatar: DEFAULT_AVATAR
   },
   {
     id: 3,
-    email: 'emma.wong@reqres.in',
-    first_name: 'Emma',
-    last_name: 'Wong',
-    avatar: 'https://reqres.in/img/faces/3-image.jpg'
+    email: 'cuong.le@vss.vn',
+    first_name: 'Cường',
+    last_name: 'Lê Hoàng',
+    avatar: DEFAULT_AVATAR
   },
   {
     id: 4,
-    email: 'eve.holt@reqres.in',
-    first_name: 'Eve',
-    last_name: 'Holt',
-    avatar: 'https://reqres.in/img/faces/4-image.jpg'
+    email: 'duc.pham@vss.vn',
+    first_name: 'Đức',
+    last_name: 'Phạm Minh',
+    avatar: DEFAULT_AVATAR
   },
   {
     id: 5,
-    email: 'charles.morris@reqres.in',
-    first_name: 'Charles',
-    last_name: 'Morris',
-    avatar: 'https://reqres.in/img/faces/5-image.jpg'
+    email: 'em.vo@vss.vn',
+    first_name: 'Em',
+    last_name: 'Võ Thanh',
+    avatar: DEFAULT_AVATAR
   },
   {
     id: 6,
-    email: 'tracey.ramos@reqres.in',
-    first_name: 'Tracey',
-    last_name: 'Ramos',
-    avatar: 'https://reqres.in/img/faces/6-image.jpg'
+    email: 'vinh.do@vss.vn',
+    first_name: 'Vinh',
+    last_name: 'Đỗ Quang',
+    avatar: DEFAULT_AVATAR
   }
 ];
 
@@ -93,8 +95,8 @@ export class UserService {
     const currentUsers = this.usersSubject.value;
     const newId = currentUsers.length > 0 ? Math.max(...currentUsers.map(u => u.id)) + 1 : 1;
     
-    // Nếu avatar rỗng, gán avatar mặc định từ UI Avatars
-    const avatar = userData.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(userData.first_name + '+' + userData.last_name)}&background=EE0033&color=fff`;
+    // Nếu avatar rỗng, gán avatar mặc định cang_endmin.jpg
+    const avatar = userData.avatar || DEFAULT_AVATAR;
 
     const newUser: User = {
       id: newId,

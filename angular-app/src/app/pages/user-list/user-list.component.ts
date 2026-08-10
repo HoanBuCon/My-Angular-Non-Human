@@ -22,6 +22,7 @@ export class UserListComponent implements OnInit {
   isEditMode: boolean = false;
   selectedUserId: number | null = null;
   userForm!: FormGroup;
+  avatarPreview: string | null = null;
 
   // Delete Confirmation Modal State
   isDeleteModalOpen: boolean = false;
@@ -67,6 +68,7 @@ export class UserListComponent implements OnInit {
   openAddModal(): void {
     this.isEditMode = false;
     this.selectedUserId = null;
+    this.avatarPreview = null;
     this.userForm.reset();
     this.isModalOpen = true;
   }
@@ -74,6 +76,7 @@ export class UserListComponent implements OnInit {
   openEditModal(user: User): void {
     this.isEditMode = true;
     this.selectedUserId = user.id;
+    this.avatarPreview = user.avatar || null;
     this.userForm.patchValue({
       first_name: user.first_name,
       last_name: user.last_name,
@@ -85,7 +88,35 @@ export class UserListComponent implements OnInit {
 
   closeModal(): void {
     this.isModalOpen = false;
+    this.avatarPreview = null;
     this.userForm.reset();
+  }
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      const file = input.files[0];
+      
+      // Kiểm tra kích thước file (tối đa 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        this.toast.error('Kích thước ảnh không được vượt quá 5MB!');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        const result = reader.result as string;
+        this.avatarPreview = result;
+        this.userForm.patchValue({ avatar: result });
+        this.toast.info('Đã tải ảnh lên! Nhấn "Lưu thay đổi" để áp dụng.');
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  removeAvatar(): void {
+    this.avatarPreview = null;
+    this.userForm.patchValue({ avatar: '' });
   }
 
   saveUser(): void {

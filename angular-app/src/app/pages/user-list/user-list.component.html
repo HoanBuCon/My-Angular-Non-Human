@@ -53,7 +53,7 @@
       <tbody>
         <tr *ngFor="let user of filteredUsers">
           <td>
-            <img [src]="user.avatar" [alt]="user.first_name" class="user-avatar" (error)="user.avatar = 'https://ui-avatars.com/api/?name=' + user.first_name + '+' + user.last_name">
+            <img [src]="user.avatar" [alt]="user.first_name" class="user-avatar" (error)="user.avatar = '/assets/pages/user-management/cang_endmin.jpg'">
           </td>
           <td class="font-bold">{{ user.first_name }}</td>
           <td class="font-bold">{{ user.last_name }}</td>
@@ -90,7 +90,7 @@
     <form [formGroup]="userForm" (ngSubmit)="saveUser()" class="modal-body">
       <div class="form-group">
         <label for="first_name">First Name (Tên)</label>
-        <input type="text" id="first_name" formControlName="first_name" class="form-input" placeholder="Ví dụ: George">
+        <input type="text" id="first_name" formControlName="first_name" class="form-input" placeholder="Ví dụ: An">
         <span class="form-error" *ngIf="userForm.get('first_name')?.invalid && userForm.get('first_name')?.touched">
           Vui lòng nhập First Name
         </span>
@@ -98,7 +98,7 @@
 
       <div class="form-group">
         <label for="last_name">Last Name (Họ)</label>
-        <input type="text" id="last_name" formControlName="last_name" class="form-input" placeholder="Ví dụ: Bluth">
+        <input type="text" id="last_name" formControlName="last_name" class="form-input" placeholder="Ví dụ: Nguyễn Văn">
         <span class="form-error" *ngIf="userForm.get('last_name')?.invalid && userForm.get('last_name')?.touched">
           Vui lòng nhập Last Name
         </span>
@@ -106,15 +106,26 @@
 
       <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" id="email" formControlName="email" class="form-input" placeholder="george.bluth@reqres.in">
+        <input type="email" id="email" formControlName="email" class="form-input" placeholder="an.nguyen@vss.vn">
         <span class="form-error" *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched">
           Vui lòng nhập Email hợp lệ
         </span>
       </div>
 
+      <!-- Avatar Upload Component -->
       <div class="form-group">
-        <label for="avatar">URL Avatar (Tùy chọn)</label>
-        <input type="text" id="avatar" formControlName="avatar" class="form-input" placeholder="https://example.com/avatar.jpg">
+        <label>Ảnh đại diện (Avatar)</label>
+        <div class="avatar-upload">
+          <div class="avatar-upload__preview" *ngIf="avatarPreview">
+            <img [src]="avatarPreview" alt="Avatar Preview" class="avatar-upload__img">
+            <button type="button" class="avatar-upload__remove" (click)="removeAvatar()" title="Xóa ảnh">&times;</button>
+          </div>
+          <label for="avatar-file" class="avatar-upload__dropzone">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="avatar-upload__icon"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <span class="avatar-upload__text">{{ avatarPreview ? 'Thay đổi ảnh đại diện' : 'Tải ảnh lên từ máy tính (PNG, JPG, WEBP)' }}</span>
+            <input type="file" id="avatar-file" accept="image/*" (change)="onFileSelected($event)" class="avatar-upload__file-input">
+          </label>
+        </div>
       </div>
 
       <footer class="modal-footer">
