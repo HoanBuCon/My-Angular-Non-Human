@@ -1,0 +1,113 @@
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { ToastService } from '../../services/toast.service';
+
+@Component({
+  selector: 'app-login',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
+})
+export class LoginComponent implements OnInit, OnDestroy {
+  loginForm!: FormGroup;
+  showPassword = false;
+  failedAttempts = 0;
+  isLocked = false;
+  lockoutSeconds = 60;
+  private timer: any = null;
+
+  private readonly MAX_ATTEMPTS = 5;
+
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private toast: ToastService
+  ) {}
+
+  ngOnInit(): void {
+    this.loginForm = this.fb.group({
+      username: ['', [Validators.required, Validators.minLength(3)]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      rememberMe: [false]
+    });
+
+    const storedAttempts = parseInt(sessionStorage.getItem('login_failed_attempts') || '0', 10);
+    this.failedAttempts = storedAttempts;
+
+    if (this.failedAttempts >= this.MAX_ATTEMPTS) {
+      this.startLockout();
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.timer) {
+      clearInterval(this.timer);
+    }
+  }
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
+
+  onSubmit(): void {
+    if (this.isLocked) {
+      this.toast.error('Tài khoản đang bị tạm khóa. Vui lòng chờ hết thời gian đếm ngược!');
+      return;
+    }
+
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
+      this.toast.error('Bạn đã nhập sai tài khoản hoặc mật khẩu');
+      return;
+    }
+
+    const { username, password } = this.loginForm.value;
+    const usernameVal = username.trim();
+
+    // Tài khoản test chuẩn
+    const isSuccess = (usernameVal === 'admin@vss.vn' || usernameVal === 'admin') && password === '123456';
+
+    if (!isSuccess) {
+      this.failedAttempts++;
+      sessionStorage.setItem('login_failed_attempts', this.failedAttempts.toString());
+
+      if (this.failedAttempts >= this.MAX_ATTEMPTS) {
+        this.startLockout();
+      } else {
+        const remaining = this.MAX_ATTEMPTS - this.failedAttempts;
+        this.toast.error(`Bạn đã nhập sai tài khoản hoặc mật khẩu (Còn ${remaining} lần thử)`);
+      }
+      return;
+    }
+
+    // Đăng nhập thành công
+    this.failedAttempts = 0;
+    sessionStorage.setItem('login_failed_attempts', '0');
+    sessionStorage.setItem('is_authenticated', 'true');
+
+    this.toast.success('Đăng nhập thành công! Đang chuyển hướng...');
+    setTimeout(() => {
+      this.router.navigate(['/users']);
+    }, 1000);
+  }
+
+  private startLockout(): void {
+    this.isLocked = true;
+    this.lockoutSeconds = 60;
+    this.toast.error(`Bạn đã nhập sai quá ${this.MAX_ATTEMPTS} lần. Tài khoản tạm thời bị khóa 60 giây!`, 5000);
+
+    this.timer = setInterval(() => {
+      this.lockoutSeconds--;
+      if (this.lockoutSeconds <= 0) {
+        clearInterval(this.timer);
+        this.isLocked = false;
+        this.failedAttempts = 0;
+        sessionStorage.setItem('login_failed_attempts', '0');
+        this.toast.info('Hết thời gian chờ. Bạn có thể đăng nhập lại.');
+      }
+    }, 1000);
+  }
+}

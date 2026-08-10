@@ -1,0 +1,104 @@
+<main class="auth-page">
+    <button id="language-button" class="language-button" type="button">
+        <img class="language-button__icon" src="/assets/pages/login/dia_cau_language.svg" alt="">
+        <span class="language-button__text">Tiếng Việt</span>
+        <img class="language-button__arrow" src="/assets/pages/login/mui_ten_drop.svg" alt="">
+    </button>
+
+    <div class="auth-banner">
+        <img class="auth-banner__image" src="/assets/pages/login/auth_banner.svg" alt="Welcome to VSS">
+        <div class="auth-banner__caption">
+            <h1 class="auth-banner__title">Hệ thống quản lý chat đa nền tảng</h1>
+            <p class="auth-banner__description">Tiết kiệm thời gian tư vấn và chăm sóc khách hàng</p>
+        </div>
+        <nav class="auth-banner__pagination">
+            <span class="auth-banner__dot auth-banner__dot--active"></span>
+            <span class="auth-banner__dot"></span>
+            <span class="auth-banner__dot"></span>
+        </nav>
+    </div>
+
+    <section class="auth-page__left"></section>
+
+    <section class="auth-page__right">
+        <div class="auth-card">
+            <header class="auth-card__header">
+                <img class="auth-card__logo" src="/assets/pages/login/vss_logo.svg" alt="VSS Logo">
+                <h2 class="auth-card__title">Đăng ký trải nghiệm</h2>
+            </header>
+
+            <div class="auth-card__body">
+                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form" novalidate>
+                    <!-- Họ và Tên -->
+                    <div class="register-form__row">
+                        <div class="register-form__field register-form__field--half">
+                            <input type="text" id="lastName" formControlName="lastName" class="register-form__input" placeholder=" ">
+                            <label for="lastName" class="register-form__label" data-default="Nhập họ của bạn" data-active="Họ"></label>
+                        </div>
+                        <div class="register-form__field register-form__field--half">
+                            <input type="text" id="firstName" formControlName="firstName" class="register-form__input" placeholder=" ">
+                            <label for="firstName" class="register-form__label" data-default="Nhập tên của bạn" data-active="Tên"></label>
+                        </div>
+                    </div>
+
+                    <!-- Email làm việc -->
+                    <div class="register-form__field">
+                        <input type="email" id="workEmail" formControlName="workEmail" class="register-form__input" placeholder=" ">
+                        <label for="workEmail" class="register-form__label" data-default="Nhập email làm việc" data-active="Email làm việc"></label>
+                    </div>
+
+                    <!-- Tên công ty & Quốc gia -->
+                    <div class="register-form__row">
+                        <div class="register-form__field register-form__field--half">
+                            <input type="text" id="companyName" formControlName="companyName" class="register-form__input" placeholder=" ">
+                            <label for="companyName" class="register-form__label" data-default="Nhập tên công ty" data-active="Tên công ty"></label>
+                        </div>
+                        <div class="register-form__field register-form__field--half">
+                            <select id="country" formControlName="country" class="register-form__select">
+                                <option value="" disabled selected hidden></option>
+                                <option value="VN">Việt Nam</option>
+                                <option value="US">Hoa Kỳ</option>
+                                <option value="JP">Nhật Bản</option>
+                                <option value="KR">Hàn Quốc</option>
+                                <option value="SG">Singapore</option>
+                            </select>
+                            <label for="country" class="register-form__label" data-default="Quốc gia" data-active="Quốc gia"></label>
+                        </div>
+                    </div>
+
+                    <!-- Lĩnh vực -->
+                    <div class="register-form__field">
+                        <select id="industry" formControlName="industry" class="register-form__select">
+                            <option value="" disabled selected hidden></option>
+                            <option value="IT">Công nghệ thông tin / Phần mềm</option>
+                            <option value="EC">Thương mại điện tử / Bán lẻ</option>
+                            <option value="BF">Tài chính / Ngân hàng / Bảo hiểm</option>
+                            <option value="EDU">Giáo dục / Đào tạo</option>
+                            <option value="MKT">Truyền thông / Marketing</option>
+                        </select>
+                        <label for="industry" class="register-form__label" data-default="Nhập lĩnh vực" data-active="Lĩnh vực"></label>
+                    </div>
+
+                    <!-- Vị trí làm việc -->
+                    <div class="register-form__field">
+                        <input type="text" id="jobTitle" formControlName="jobTitle" class="register-form__input" placeholder=" ">
+                        <label for="jobTitle" class="register-form__label" data-default="Vị trí làm việc" data-active="Vị trí làm việc"></label>
+                    </div>
+
+                    <!-- Mục đích -->
+                    <div class="register-form__field">
+                        <input type="text" id="purpose" formControlName="purpose" class="register-form__input" placeholder=" ">
+                        <label for="purpose" class="register-form__label" data-default="Mục đích bạn đến với website" data-active="Mục đích"></label>
+                    </div>
+
+                    <button type="submit" class="register-form__submit">Đăng ký</button>
+                </form>
+            </div>
+
+            <footer class="auth-card__footer">
+                <span>Bạn đã có tài khoản?</span>
+                <a routerLink="/login" class="auth-card__footer-link">Đăng nhập</a>
+            </footer>
+        </div>
+    </section>
+</main>

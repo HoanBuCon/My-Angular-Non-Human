@@ -1,0 +1,374 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+.user-management {
+  min-height: 100vh;
+  background: $page-bg;
+  padding: 32px 48px;
+  font-family: $font-family-primary;
+
+  @include respond-max($bp-sm) {
+    padding: 16px;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+
+    @include respond-max($bp-sm) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+  }
+
+  &__brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  &__logo {
+    height: 44px;
+    width: auto;
+  }
+
+  &__title {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: $primary-1;
+    margin: 0;
+  }
+
+  &__subtitle {
+    font-size: $font-size-sm;
+    color: $text-secondary;
+    margin: 4px 0 0 0;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 12px;
+
+    @include respond-max($bp-sm) {
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
+
+  &__toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 16px;
+
+    @include respond-max($bp-xs) {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+
+  &__search {
+    position: relative;
+    flex: 1;
+    max-width: 440px;
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 18px;
+      height: 18px;
+      color: $text-placeholder;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 12px 16px 12px 42px;
+      border: 1.25px solid $border-default;
+      border-radius: 8px;
+      font-size: $font-size-md;
+      outline: none;
+
+      &:focus {
+        border-color: $border-focus;
+      }
+    }
+  }
+
+  &__count {
+    font-size: $font-size-md;
+    color: $text-primary;
+  }
+
+  &__table-card {
+    background: $white;
+    border-radius: 12px;
+    box-shadow: $shadow-gradient-blue;
+    overflow: hidden;
+  }
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+
+  th {
+    background: $bg-6;
+    padding: 16px 24px;
+    font-weight: $font-weight-bold;
+    font-size: $font-size-sm;
+    color: $text-primary;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid $border-default;
+  }
+
+  td {
+    padding: 16px 24px;
+    border-bottom: 1px solid $border-default;
+    vertical-align: middle;
+    font-size: $font-size-md;
+  }
+
+  tbody tr {
+    transition: background 0.15s ease-in-out;
+    &:hover {
+      background: rgba(238, 0, 51, 0.02);
+    }
+
+    &:last-child td {
+      border-bottom: none;
+    }
+  }
+}
+
+.user-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid $border-default;
+}
+
+.font-bold {
+  font-weight: $font-weight-semibold;
+  color: $text-primary;
+}
+
+.text-secondary {
+  color: $text-secondary;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 48px !important;
+  color: $text-placeholder;
+}
+
+.table-actions {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.action-btn {
+  @include flex-center;
+  width: 34px;
+  height: 34px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  &--edit {
+    background: #EBF2FE;
+    color: $link-color;
+
+    &:hover {
+      background: $link-color;
+      color: $white;
+    }
+  }
+
+  &--delete {
+    background: #FEEBEF;
+    color: $primary-1;
+
+    &:hover {
+      background: $primary-1;
+      color: $white;
+    }
+  }
+}
+
+// Buttons
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  font-weight: $font-weight-semibold;
+  font-size: $font-size-md;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease-in-out;
+
+  .btn-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  &--primary {
+    background: $primary-1;
+    color: $white;
+    &:hover {
+      background: $primary-4;
+    }
+  }
+
+  &--outline {
+    background: transparent;
+    border: 1.25px solid $border-default;
+    color: $text-primary;
+    &:hover {
+      border-color: $primary-1;
+      color: $primary-1;
+    }
+  }
+
+  &--secondary {
+    background: $bg-5;
+    color: $text-primary;
+    &:hover {
+      background: darken($bg-5, 10%);
+    }
+  }
+
+  &--danger {
+    background: $primary-1;
+    color: $white;
+    &:hover {
+      background: darken($primary-1, 10%);
+    }
+  }
+}
+
+// Modals
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(2px);
+  @include flex-center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-content {
+  background: $white;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: $shadow-gradient-blue;
+  overflow: hidden;
+  animation: modalSlideDown 0.25s ease-out;
+
+  &--small {
+    max-width: 400px;
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid $border-default;
+
+  h2 {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $primary-1;
+    margin: 0;
+  }
+
+  .modal-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: $text-placeholder;
+    cursor: pointer;
+    line-height: 1;
+    &:hover {
+      color: $primary-1;
+    }
+  }
+}
+
+.modal-body {
+  padding: 24px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 16px;
+}
+
+.form-group {
+  margin-bottom: 16px;
+
+  label {
+    display: block;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $text-primary;
+    margin-bottom: 6px;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.25px solid $border-default;
+    border-radius: 6px;
+    font-size: $font-size-md;
+    outline: none;
+    &:focus {
+      border-color: $border-focus;
+    }
+  }
+
+  .form-error {
+    display: block;
+    font-size: $font-size-xs;
+    color: $primary-1;
+    margin-top: 4px;
+  }
+}
+
+@keyframes modalSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

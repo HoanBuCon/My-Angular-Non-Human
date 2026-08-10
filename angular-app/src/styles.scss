@@ -1,0 +1,24 @@
+// ======================================================
+// ANGULAR GLOBAL STYLES (styles.scss)
+// ======================================================
+
+// Google Fonts: Quicksand
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
+
+// ABSTRACTS
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+// BASE
+@import 'base/reset';
+@import 'base/global';
+
+// COMPONENTS
+@import 'components/button';
+@import 'components/card';
+@import 'components/checkbox';
+@import 'components/input';
+@import 'components/toast';
+
+// FEATURES
+@import 'features/auth/auth';

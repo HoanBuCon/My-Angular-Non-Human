@@ -1,0 +1,86 @@
+<main class="auth-page">
+    <button id="language-button" class="language-button" type="button">
+        <img class="language-button__icon" src="/assets/pages/login/dia_cau_language.svg" alt="">
+        <span class="language-button__text">Tiếng Việt</span>
+        <img class="language-button__arrow" src="/assets/pages/login/mui_ten_drop.svg" alt="">
+    </button>
+
+    <div class="auth-banner">
+        <img class="auth-banner__image" src="/assets/pages/login/auth_banner.svg" alt="Welcome to VSS">
+        <div class="auth-banner__caption">
+            <h1 class="auth-banner__title">Hệ thống quản lý chat đa nền tảng</h1>
+            <p class="auth-banner__description">Tiết kiệm thời gian tư vấn và chăm sóc khách hàng</p>
+        </div>
+        <nav class="auth-banner__pagination">
+            <span class="auth-banner__dot auth-banner__dot--active"></span>
+            <span class="auth-banner__dot"></span>
+            <span class="auth-banner__dot"></span>
+        </nav>
+    </div>
+
+    <section class="auth-page__left"></section>
+
+    <section class="auth-page__right">
+        <div class="auth-card">
+            <header class="auth-card__header">
+                <img class="auth-card__logo" src="/assets/pages/login/vss_logo.svg" alt="VSS Logo">
+                <h2 class="auth-card__title">Đăng nhập vào tài khoản của bạn</h2>
+            </header>
+
+            <div class="auth-card__body">
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form" novalidate>
+                    <!-- Username / Email -->
+                    <div class="login-form__field">
+                        <input
+                            type="text"
+                            id="username"
+                            formControlName="username"
+                            class="login-form__input"
+                            [class.login-form__input--error]="loginForm.get('username')?.invalid && loginForm.get('username')?.touched"
+                            placeholder=" "
+                            [disabled]="isLocked">
+                        <label for="username" class="login-form__label" data-default="Tài khoản" data-active="Tài khoản"></label>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="login-form__field">
+                        <input
+                            [type]="showPassword ? 'text' : 'password'"
+                            id="password"
+                            formControlName="password"
+                            class="login-form__input"
+                            [class.login-form__input--error]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+                            placeholder=" "
+                            [disabled]="isLocked">
+                        <label for="password" class="login-form__label" data-default="Mật khẩu" data-active="Mật khẩu"></label>
+                        <button type="button" class="login-form__password-toggle" (click)="togglePasswordVisibility()" [attr.aria-label]="showPassword ? 'Ẩn mật khẩu' : 'Hiện mật khẩu'">
+                            <svg *ngIf="!showPassword" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                            <svg *ngIf="showPassword" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.52 13.52 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" y1="2" x2="22" y2="22"/></svg>
+                        </button>
+                    </div>
+
+                    <!-- Remember me & Forgot Password -->
+                    <div class="login-form__options">
+                        <label class="login-form__remember-me">
+                            <input type="checkbox" formControlName="rememberMe" id="remember-me" class="login-form__checkbox">
+                            <span class="login-form__checkmark"></span>
+                            <span class="login-form__remember-text">Lưu mật khẩu</span>
+                        </label>
+                        <a routerLink="/forgot-password" class="login-form__forgot-password">Quên mật khẩu?</a>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="login-form__submit" [disabled]="isLocked">
+                        <ng-container *ngIf="!isLocked">Đăng nhập</ng-container>
+                        <ng-container *ngIf="isLocked">Tạm khóa ({{ lockoutSeconds }}s)</ng-container>
+                    </button>
+                </form>
+            </div>
+
+            <footer class="auth-card__footer">
+                <span>Bạn chưa có tài khoản?</span>
+                <a routerLink="/register" class="auth-card__footer-link">Đăng ký</a>
+            </footer>
+        </div>
+    </section>
+</main>

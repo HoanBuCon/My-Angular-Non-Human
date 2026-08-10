@@ -1,0 +1,130 @@
+// ======================================================
+// TOASTER COMPONENT (Global Notification)
+// ======================================================
+
+.toast-container {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 440px;
+    width: calc(100% - 48px);
+    pointer-events: none;
+
+    @include respond-max($bp-sm) {
+        top: 16px;
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        width: calc(100% - 32px);
+    }
+}
+
+.toast {
+    display: flex;
+    align-items: stretch;
+    background: $page-bg;
+    box-shadow: $shadow-gradient-blue;
+    border-radius: 5px;
+    overflow: hidden;
+    pointer-events: auto;
+    animation: toastSlideIn 0.3s ease-out forwards;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+
+    &--hiding {
+        animation: toastFadeOut 0.3s ease-in forwards;
+    }
+
+    &__icon-box {
+        @include flex-center;
+        min-width: 56px;
+        padding: 0 16px;
+        background: $primary-1;
+        color: $white;
+        @include user-select(none);
+
+        svg {
+            width: 24px;
+            height: 24px;
+            stroke-width: 2px;
+        }
+    }
+
+    &__content {
+        display: flex;
+        align-items: center;
+        padding: 16px 20px;
+        flex: 1;
+    }
+
+    &__message {
+        font-family: $font-family-primary;
+        font-weight: $font-weight-medium;
+        font-size: $font-size-md;
+        color: $primary-1;
+        margin: 0;
+        line-height: 1.4;
+    }
+
+    // Biến thể theo loại Toast (Error, Success, Warning, Info)
+    &--error {
+        .toast__icon-box {
+            background: $primary-1;
+        }
+        .toast__message {
+            color: $primary-1;
+        }
+    }
+
+    &--success {
+        .toast__icon-box {
+            background: $success-1;
+        }
+        .toast__message {
+            color: $success-1;
+        }
+    }
+
+    &--warning {
+        .toast__icon-box {
+            background: $warning-1;
+        }
+        .toast__message {
+            color: $warning-1;
+        }
+    }
+
+    &--info {
+        .toast__icon-box {
+            background: $secondary-1;
+        }
+        .toast__message {
+            color: $secondary-1;
+        }
+    }
+}
+
+@keyframes toastSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(110%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes toastFadeOut {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(110%);
+    }
+}
