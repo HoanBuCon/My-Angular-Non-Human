@@ -1,3 +1,3 @@
-# ma ngga u look hard asf lemme help u out
+# i changed something
 
 ![Genius](src/assets/genius.png)
