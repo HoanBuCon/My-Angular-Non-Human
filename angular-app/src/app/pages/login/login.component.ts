@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   failedAttempts = 0;
   isLocked = false;
   lockoutSeconds = 60;
+  isSubmitted = false;
   private timer: any = null;
 
   private readonly MAX_ATTEMPTS = 5;
@@ -53,6 +54,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
+    this.isSubmitted = true;
     if (this.isLocked) {
       this.toast.error('Tài khoản đang bị tạm khóa. Vui lòng chờ hết thời gian đếm ngược!');
       return;
@@ -90,7 +92,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     this.toast.success('Đăng nhập thành công! Đang chuyển hướng...');
     setTimeout(() => {
-      this.router.navigate(['/users']);
+      this.router.navigate(['/apps']);
     }, 1000);
   }
 

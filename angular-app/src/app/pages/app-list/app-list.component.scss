@@ -1,0 +1,1116 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+$border-radius-base: 5px;
+
+.app-layout {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+  width: 100%;
+  background-color: $bg-7;
+  font-family: $font-family-primary;
+}
+
+// ==========================================
+// 1. NARROW LEFT RAIL (Full Height with Logo)
+// ==========================================
+.app-rail {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 56px;
+  min-height: 100vh;
+  padding: 10px 0 16px 0;
+  background-color: $bg-7;
+  border-right: none;
+  box-shadow: 0px 0px 9px 0px #5655D23D;
+  flex-shrink: 0;
+  z-index: 20;
+
+  &__top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+  }
+
+  &__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding-top: 16px;
+  }
+}
+
+.rail-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding-bottom: 4px;
+
+  &__img {
+    width: 38px;
+    height: auto;
+    object-fit: contain;
+  }
+}
+
+.rail-item-active-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: $border-radius-base;
+  background-color: rgba(238, 0, 51, 0.12);
+}
+
+.rail-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: $border-radius-base;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+  }
+
+  &:hover {
+    background-color: $bg-6;
+  }
+
+  &--active {
+    background-color: transparent !important;
+    box-shadow: none;
+
+    .rail-item__icon-white {
+      filter: none;
+      width: 22px;
+      height: 22px;
+    }
+
+    &:hover {
+      background-color: transparent !important;
+    }
+  }
+}
+
+.rail-collapse-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  background: $bg-7;
+  border: 1px solid $bg-5;
+  border-radius: $border-radius-base;
+  color: $bg-3;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: $bg-6;
+    color: $primary-1;
+    border-color: $primary-1;
+  }
+}
+
+// ==========================================
+// 2. MAIN WRAPPER (TOPBAR + CONTENT AREA)
+// ==========================================
+.app-main-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 100vh;
+  min-width: 0;
+  background-color: $bg-7;
+}
+
+// Topbar - sits directly above Submenu & Main content
+.app-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 44px;
+  padding: 0 24px 0 0;
+  background-color: $bg-7;
+  border-bottom: 1px solid $bg-5;
+  z-index: 10;
+
+  &__tabs {
+    display: flex;
+    align-items: stretch;
+    height: 100%;
+    margin: 0;
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  &__notification {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    color: $bg-4;
+    transition: all 0.2s ease;
+
+    svg {
+      fill: $bg-4;
+      stroke: $bg-4;
+      transition: all 0.2s ease;
+    }
+
+    &:hover {
+      color: $primary-1;
+
+      svg {
+        fill: $primary-1;
+        stroke: $primary-1;
+      }
+    }
+  }
+
+  &__badge {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 7px;
+    height: 7px;
+    background-color: $primary-1;
+    border-radius: 50%;
+    border: 1.5px solid $bg-7;
+  }
+
+  &__avatar {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: $secondary-1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    &-letter {
+      color: $white;
+      font-size: $font-size-sm;
+      font-weight: $font-weight-bold;
+    }
+
+    &-status {
+      position: absolute;
+      bottom: -1px;
+      right: -1px;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background-color: $success-1;
+      border: 2px solid $bg-7;
+    }
+  }
+}
+
+.app-tab {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 100%;
+  padding: 0 20px;
+  background: $bg-6;
+  border: none;
+  border-radius: 0;
+  margin: 0;
+
+  &__icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  &__text {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: $text-primary;
+  }
+
+  &__close {
+    background: transparent;
+    border: none;
+    padding: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $text-primary;
+    cursor: pointer;
+    border-radius: 50%;
+    opacity: 0.75;
+    transition: all 0.15s ease;
+
+    &:hover {
+      opacity: 1;
+      color: $primary-1;
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+  }
+}
+
+// ==========================================
+// 3. CONTENT AREA (SUBMENU + MAIN CONTENT)
+// ==========================================
+.app-content-area {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  min-height: calc(100vh - 44px);
+  min-width: 0;
+}
+
+// Submenu panel ("Ứng dụng" container below topbar)
+.app-submenu {
+  width: 210px;
+  padding: 24px 0;
+  background-color: $bg-6;
+  border-right: none;
+  box-shadow: none;
+  flex-shrink: 0;
+  transition: width 0.25s ease-in-out;
+}
+
+.submenu-title {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: $text-primary;
+  padding: 0 20px;
+  margin-bottom: 16px;
+}
+
+.submenu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.submenu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 20px;
+  border-radius: 0;
+  cursor: pointer;
+  color: $bg-3;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  transition: all 0.2s ease;
+  background-color: transparent;
+
+  .submenu-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+
+  .submenu-text {
+    white-space: nowrap;
+  }
+
+  &:hover {
+    color: $primary-1;
+  }
+
+  &--active {
+    color: $primary-1;
+    font-weight: $font-weight-bold;
+    background-color: #FFFFFF !important;
+    box-shadow: none;
+
+    &:hover {
+      color: $primary-1;
+      background-color: #FFFFFF !important;
+    }
+  }
+}
+
+// ==========================================
+// 3. MAIN CONTENT AREA
+// ==========================================
+.app-main {
+  flex: 1;
+  padding: 24px 32px;
+  background-color: $bg-7;
+  overflow-x: auto;
+}
+
+.main-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+
+  &__title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $text-primary;
+    margin: 0;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+}
+
+// Buttons
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  height: 38px;
+  font-family: $font-family-primary;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  border-radius: $border-radius-base;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+
+  .btn-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  &--solid-red {
+    background-color: $primary-1;
+    color: $white;
+    border: 1px solid $primary-1;
+
+    &:hover {
+      background-color: $primary-4;
+      border-color: $primary-4;
+    }
+  }
+
+  &--outline-red {
+    background-color: transparent;
+    color: $primary-1;
+    border: 1.25px solid $primary-1;
+
+    &:hover {
+      background-color: rgba(238, 0, 51, 0.05);
+    }
+  }
+
+  &--secondary {
+    background-color: $bg-6;
+    color: $text-primary;
+    border: 1px solid $bg-5;
+
+    &:hover {
+      background-color: $gray-5;
+    }
+  }
+}
+
+// ==========================================
+// 4. DATA TABLE
+// ==========================================
+.app-table-wrapper {
+  background: $bg-7;
+  border: 1px solid $bg-6;
+  border-radius: $border-radius-base;
+  overflow: hidden;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.app-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: $font-size-sm;
+
+  th, td {
+    padding: 12px 14px;
+    vertical-align: middle;
+  }
+
+  // Header styles
+  thead {
+    background-color: $bg-6;
+    border-bottom: 1px solid $bg-6;
+
+    .table-title-row {
+      border-bottom: 1px solid $bg-6;
+
+      th {
+        font-weight: $font-weight-bold;
+        color: $bg-2;
+        font-size: $font-size-md;
+        padding: 12px 14px 8px 14px;
+        border-right: 1px solid $bg-6;
+
+        &:last-child {
+          border-right: none;
+        }
+      }
+    }
+
+    .table-filter-row {
+      background-color: $bg-7;
+
+      th {
+        padding: 6px 14px 12px 14px;
+        background-color: $bg-7;
+        border-right: 1px solid $bg-6;
+
+        &:last-child {
+          border-right: none;
+        }
+      }
+    }
+  }
+
+  .th-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: $font-weight-semibold;
+    color: $text-secondary;
+  }
+
+  .th-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+  }
+
+  // Table Body Rows
+  tbody {
+    tr {
+      border-bottom: 1px solid $bg-6;
+      transition: background-color 0.15s ease;
+
+      &:hover {
+        background-color: $bg-6;
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    td {
+      font-size: $font-size-md;
+      font-weight: $font-weight-medium;
+      color: $bg-2;
+      border-right: 1px solid $bg-6;
+
+      &.col-name {
+        font-size: $font-size-md;
+        font-weight: $font-weight-bold;
+        color: $bg-1;
+      }
+
+      &.col-stt,
+      &.col-creator,
+      &.col-date,
+      &.col-users,
+      &.col-scripts {
+        font-size: $font-size-md;
+        font-weight: $font-weight-medium;
+        color: $bg-2;
+      }
+
+      &:last-child {
+        border-right: none;
+      }
+    }
+  }
+}
+
+// Table Filters
+.filter-box {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.input-with-icon,
+.select-with-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  svg {
+    position: absolute;
+    left: 8px;
+    pointer-events: none;
+  }
+}
+
+.filter-input {
+  width: 100%;
+  height: 32px;
+  padding: 4px 8px 4px 28px;
+  font-family: $font-family-primary;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  color: $text-primary;
+  background-color: $bg-7;
+  border: 1px solid $bg-5;
+  border-radius: $border-radius-base;
+  outline: none;
+  transition: border-color 0.2s ease;
+
+  &::placeholder {
+    color: $bg-3;
+  }
+
+  &:focus {
+    border-color: $primary-1;
+  }
+}
+
+.filter-select {
+  width: 100%;
+  height: 32px;
+  padding: 4px 8px 4px 28px;
+  font-family: $font-family-primary;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  color: $text-primary;
+  background-color: $bg-7;
+  border: 1px solid $bg-5;
+  border-radius: $border-radius-base;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+
+  &--plain {
+    padding-left: 8px;
+  }
+
+  &:focus {
+    border-color: $primary-1;
+  }
+}
+
+.btn-sort {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 32px;
+  background-color: $bg-7;
+  border: 1px solid $bg-5;
+  border-radius: $border-radius-base;
+  color: $bg-3;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: $primary-1;
+    border-color: $primary-1;
+  }
+}
+
+// Column specific styling
+.col-stt {
+  width: 60px;
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  color: $bg-2;
+}
+
+.col-name {
+  min-width: 180px;
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  color: $bg-1;
+}
+
+.col-creator {
+  min-width: 140px;
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  color: $bg-2;
+}
+
+.col-date {
+  min-width: 130px;
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  color: $bg-2;
+}
+
+.col-category {
+  min-width: 140px;
+}
+
+.col-status {
+  min-width: 120px;
+}
+
+.col-channel {
+  min-width: 110px;
+}
+
+.col-users {
+  min-width: 100px;
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  color: $bg-2;
+}
+
+.col-scripts {
+  min-width: 110px;
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  color: $bg-2;
+}
+
+.col-actions {
+  width: 100px;
+  text-align: center;
+}
+
+// Badges & Status Indicators
+.tag-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  border-radius: $border-radius-base;
+  white-space: nowrap;
+
+  &--blue {
+    background-color: $secondary-1;
+    color: $white;
+  }
+}
+
+.status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  white-space: nowrap;
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+
+  &--active {
+    color: $success-1;
+
+    .status-dot {
+      background-color: $success-1;
+    }
+  }
+
+  &--locked {
+    color: $bg-4;
+
+    .status-dot {
+      background-color: $bg-4;
+    }
+  }
+}
+
+.channel-icons-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .channel-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.15s ease;
+
+    &:hover {
+      transform: scale(1.15);
+    }
+  }
+}
+
+.row-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  background: transparent;
+  border: none;
+  color: $bg-3;
+  cursor: pointer;
+  border-radius: $border-radius-base;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: $primary-1;
+    background-color: $bg-6;
+  }
+
+  &--delete:hover {
+    color: $failure-1;
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 36px 16px;
+  color: $bg-3;
+  font-style: italic;
+}
+
+// Helpers
+.font-bold {
+  font-weight: $font-weight-bold;
+}
+
+.text-dark {
+  color: $bg-2;
+}
+
+.text-muted {
+  color: $bg-2;
+}
+
+.text-center {
+  text-align: center;
+}
+
+// ==========================================
+// 5. PAGINATION
+// ==========================================
+.table-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0 0 0;
+  background-color: transparent;
+  border-top: none;
+  font-size: $font-size-xs;
+  color: $text-secondary;
+}
+
+.page-size-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  background-color: $bg-6;
+  border-radius: $border-radius-base;
+  padding: 4px 12px 4px 16px;
+  height: 36px;
+}
+
+.page-size-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding-right: 18px;
+  font-family: $font-family-primary;
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  color: $bg-1;
+  cursor: pointer;
+
+  &::-ms-expand {
+    display: none;
+  }
+}
+
+.page-size-arrow {
+  position: absolute;
+  right: 10px;
+  pointer-events: none;
+  color: $bg-3;
+  width: 10px;
+  height: 7px;
+}
+
+.pagination-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.pagination-info {
+  font-family: $font-family-primary;
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $bg-3;
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.page-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 26px;
+  height: 26px;
+  padding: 0 4px;
+  font-family: $font-family-primary;
+  font-size: $font-size-xs;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  color: $bg-3;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &--nav {
+    font-size: $font-size-md;
+    font-weight: $font-weight-semibold;
+
+    &:hover:not(:disabled) {
+      color: $primary-1;
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
+
+  &--active {
+    min-width: 28px;
+    height: 28px;
+    border-radius: $border-radius-base;
+    background-color: rgba($primary-1, 0.12);
+    color: $primary-1;
+    font-weight: $font-weight-bold;
+
+    &:hover {
+      background-color: rgba($primary-1, 0.2);
+    }
+  }
+}
+
+// ==========================================
+// 6. MODALS
+// ==========================================
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-card {
+  width: 100%;
+  max-width: 540px;
+  background: $bg-7;
+  border-radius: $border-radius-base;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  animation: modalFadeIn 0.2s ease-out;
+  font-family: $font-family-primary;
+
+  &--small {
+    max-width: 420px;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    border-bottom: 1px solid $bg-5;
+
+    h2 {
+      margin: 0;
+      font-size: $font-size-lg;
+      font-weight: $font-weight-bold;
+      color: $text-primary;
+      font-family: $font-family-primary;
+    }
+  }
+
+  &__body {
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    font-family: $font-family-primary;
+
+    p, span, label {
+      font-family: $font-family-primary;
+    }
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 16px 24px;
+    border-top: 1px solid $bg-5;
+    background-color: $bg-6;
+    font-family: $font-family-primary;
+  }
+}
+
+.modal-close {
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  line-height: 1;
+  color: $bg-3;
+  cursor: pointer;
+
+  &:hover {
+    color: $primary-1;
+  }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+
+  label {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    color: $text-primary;
+
+    .required {
+      color: $failure-1;
+    }
+  }
+
+  &--half {
+    flex: 1;
+  }
+}
+
+.form-row {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+}
+
+.form-input,
+.form-select {
+  height: 38px;
+  padding: 8px 12px;
+  font-family: $font-family-primary;
+  font-size: $font-size-sm;
+  color: $text-primary;
+  background-color: $bg-7;
+  border: 1.25px solid $bg-5;
+  border-radius: $border-radius-base;
+  outline: none;
+  transition: border-color 0.2s ease;
+
+  &:focus {
+    border-color: $primary-1;
+  }
+}
+
+.form-error {
+  font-size: $font-size-xs;
+  color: $failure-1;
+  font-weight: $font-weight-medium;
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 4px 0;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: $font-size-sm;
+  color: $text-primary;
+  cursor: pointer;
+
+  input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: $primary-1;
+    cursor: pointer;
+  }
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}

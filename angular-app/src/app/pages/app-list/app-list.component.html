@@ -1,0 +1,532 @@
+<div class="app-layout">
+  <!-- 1. Left Narrow Icon Rail (Full height with Logo at top) -->
+  <nav class="app-rail">
+    <div class="app-rail__top">
+      <!-- Logo at the very top of Rail -->
+      <div class="rail-logo">
+        <img src="/assets/pages/app-list/vss_logo.svg" alt="VSS Logo" class="rail-logo__img">
+      </div>
+
+      <!-- Item 1: Messages / Chat Bubble -->
+      <a class="rail-item" title="Tin nhắn">
+        <img src="/assets/pages/app-list/messages-2.svg" alt="Tin nhắn">
+      </a>
+      <!-- Item 2: Users Group -->
+      <a class="rail-item" title="Người dùng">
+        <img src="/assets/pages/app-list/profile-2user.svg" alt="Người dùng">
+      </a>
+      <!-- Item 3: Active App (Hierarchy / Network Nodes in red square with light pink container) -->
+      <div class="rail-item-active-wrapper">
+        <a class="rail-item rail-item--active" title="Ứng dụng">
+          <img src="/assets/pages/app-list/hierarchy-square-2.svg" alt="Ứng dụng" class="rail-item__icon-white">
+        </a>
+      </div>
+      <!-- Item 4: Octagon User -->
+      <a class="rail-item" title="Quản trị">
+        <img src="/assets/pages/app-list/user-octagon.svg" alt="Quản trị">
+      </a>
+      <!-- Item 5: Driver Database -->
+      <a class="rail-item" title="Dữ liệu">
+        <img src="/assets/pages/app-list/driver.svg" alt="Dữ liệu">
+      </a>
+      <!-- Item 6: Link Circle -->
+      <a class="rail-item" title="Liên kết">
+        <img src="/assets/pages/app-list/link-circle.svg" alt="Liên kết">
+      </a>
+      <!-- Item 7: Presentation Chart -->
+      <a class="rail-item" title="Thống kê">
+        <img src="/assets/pages/app-list/presention-chart.svg" alt="Thống kê">
+      </a>
+      <!-- Item 8: Teacher / Learning -->
+      <a class="rail-item" title="Đào tạo">
+        <img src="/assets/pages/app-list/teacher.svg" alt="Đào tạo">
+      </a>
+      <!-- Item 9: Chart Analytics -->
+      <a class="rail-item" title="Báo cáo">
+        <img src="/assets/pages/app-list/chart.svg" alt="Báo cáo">
+      </a>
+      <!-- Item 10: Settings -->
+      <a class="rail-item" title="Cài đặt">
+        <img src="/assets/pages/app-list/setting-2.svg" alt="Cài đặt">
+      </a>
+    </div>
+
+    <div class="app-rail__bottom">
+      <button type="button" class="rail-collapse-btn" (click)="toggleSidebar()" title="Thu gọn / Mở rộng">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- 2. Right Area: Topbar on TOP, Submenu + Main Content BELOW it -->
+  <div class="app-main-wrapper">
+    <!-- Top Navigation Header (Spans across touching the sidebar rail) -->
+    <header class="app-topbar">
+      <div class="app-topbar__tabs">
+        <div class="app-tab app-tab--active">
+          <!-- Layer stack red icon -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="app-tab__icon">
+            <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#EE0033" stroke="#EE0033" stroke-width="1.5" stroke-linejoin="round"/>
+            <path d="M2 17L12 22L22 17" stroke="#EE0033" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2 12L12 17L22 12" stroke="#EE0033" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="app-tab__text">Ứng dụng</span>
+          <button type="button" class="app-tab__close" aria-label="Đóng tab">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="app-topbar__right">
+        <button type="button" class="app-topbar__notification" aria-label="Thông báo">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <span class="app-topbar__badge"></span>
+        </button>
+
+        <div class="app-topbar__avatar" title="Tài khoản cá nhân">
+          <span class="app-topbar__avatar-letter">L</span>
+          <span class="app-topbar__avatar-status"></span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Content Area below Topbar: Submenu on the left, Main content on the right -->
+    <div class="app-content-area">
+      <!-- Submenu Panel ("Ứng dụng" container below topbar) -->
+      <aside class="app-submenu" *ngIf="!isSidebarCollapsed">
+        <h2 class="submenu-title">Ứng dụng</h2>
+
+        <ul class="submenu-list">
+          <li class="submenu-item submenu-item--active">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="submenu-icon">
+              <rect x="3" y="3" width="18" height="18" rx="5" stroke="#EE0033" stroke-width="1.8"/>
+              <line x1="7" y1="8" x2="13" y2="8" stroke="#EE0033" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="7" y1="12" x2="17" y2="12" stroke="#EE0033" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="7" y1="16" x2="17" y2="16" stroke="#EE0033" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+            <span class="submenu-text">Danh sách ứng dụng</span>
+          </li>
+
+          <li class="submenu-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8D99BB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="submenu-icon">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+            </svg>
+            <span class="submenu-text">Danh sách yêu cầu</span>
+          </li>
+
+          <li class="submenu-item">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8D99BB" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="submenu-icon">
+              <rect x="2" y="3" width="20" height="14" rx="2"/>
+              <path d="M7 11l3-3 4 4 3-3"/>
+              <line x1="12" y1="17" x2="12" y2="21"/>
+              <line x1="8" y1="21" x2="16" y2="21"/>
+            </svg>
+            <span class="submenu-text">Phân tích</span>
+          </li>
+        </ul>
+      </aside>
+
+      <!-- Main Content Container -->
+      <main class="app-main">
+      <!-- Title & Action Buttons Row -->
+      <section class="main-header">
+        <h1 class="main-header__title">Danh sách ứng dụng ({{ filteredApps.length }})</h1>
+
+        <div class="main-header__actions">
+          <button type="button" class="btn btn--outline-red" (click)="exportList()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-icon"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <span>Xuất danh sách</span>
+          </button>
+
+          <button type="button" class="btn btn--solid-red" (click)="openAddModal()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="btn-icon"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <span>Thêm ứng dụng</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Data Table Card -->
+      <section class="app-table-wrapper">
+        <div class="table-responsive">
+          <table class="app-table">
+            <thead>
+              <!-- Row 1: Column Titles -->
+              <tr class="table-title-row">
+                <th class="col-stt">STT</th>
+                <th class="col-name">Tên</th>
+                <th class="col-creator">Người tạo</th>
+                <th class="col-date">Thời gian tạo</th>
+                <th class="col-category">Lĩnh vực</th>
+                <th class="col-status">Trạng thái</th>
+                <th class="col-channel">Kênh tương tác</th>
+                <th class="col-users">Số người dùng</th>
+                <th class="col-scripts">Số kịch bản</th>
+                <th class="col-actions"></th>
+              </tr>
+
+              <!-- Row 2: Column Filters & Sorts -->
+              <tr class="table-filter-row">
+                <!-- 1. STT Sort -->
+                <th class="col-stt text-center">
+                  <button type="button" class="btn-sort" (click)="toggleSort('id')" title="Sắp xếp theo STT">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 15l5 5 5-5"/><path d="M7 9l5-5 5 5"/></svg>
+                  </button>
+                </th>
+
+                <!-- 2. Tên Search & Sort -->
+                <th class="col-name">
+                  <div class="filter-box">
+                    <div class="input-with-icon">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8D99BB" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                      <input
+                        type="text"
+                        [(ngModel)]="nameFilter"
+                        (input)="applyFilters()"
+                        placeholder="Tìm kiếm"
+                        class="filter-input">
+                    </div>
+                    <button type="button" class="btn-sort" (click)="toggleSort('name')" title="Sắp xếp theo Tên">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 15l5 5 5-5"/><path d="M7 9l5-5 5 5"/></svg>
+                    </button>
+                  </div>
+                </th>
+
+                <!-- 3. Người tạo Search -->
+                <th class="col-creator">
+                  <div class="filter-box">
+                    <div class="input-with-icon">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8D99BB" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                      <input
+                        type="text"
+                        [(ngModel)]="creatorFilter"
+                        (input)="applyFilters()"
+                        placeholder="Tìm kiếm"
+                        class="filter-input">
+                    </div>
+                  </div>
+                </th>
+
+                <!-- 4. Thời gian tạo Filter -->
+                <th class="col-date">
+                  <div class="filter-box">
+                    <div class="select-with-icon">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8D99BB" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                      <select [(ngModel)]="dateFilter" (change)="applyFilters()" class="filter-select">
+                        <option value="">Toàn bộ</option>
+                        <option value="01/12/2021">01/12/2021</option>
+                        <option value="01/03/2022">01/03/2022</option>
+                        <option value="01/04/2022">01/04/2022</option>
+                      </select>
+                    </div>
+                  </div>
+                </th>
+
+                <!-- 5. Lĩnh vực Filter -->
+                <th class="col-category">
+                  <div class="filter-box">
+                    <select [(ngModel)]="categoryFilter" (change)="applyFilters()" class="filter-select filter-select--plain">
+                      <option value="">Toàn bộ</option>
+                      <option value="Sản phẩm điện tử">Sản phẩm điện tử</option>
+                      <option value="Bán lẻ">Bán lẻ</option>
+                      <option value="Dịch vụ">Dịch vụ</option>
+                    </select>
+                  </div>
+                </th>
+
+                <!-- 6. Trạng thái Filter -->
+                <th class="col-status">
+                  <div class="filter-box">
+                    <select [(ngModel)]="statusFilter" (change)="applyFilters()" class="filter-select filter-select--plain">
+                      <option value="">Toàn bộ</option>
+                      <option value="Đang sử dụng">Đang sử dụng</option>
+                      <option value="Tạm khóa">Tạm khóa</option>
+                    </select>
+                  </div>
+                </th>
+
+                <!-- 7. Kênh tương tác Filter -->
+                <th class="col-channel">
+                  <div class="filter-box">
+                    <select [(ngModel)]="channelFilter" (change)="applyFilters()" class="filter-select filter-select--plain">
+                      <option value="">Toàn bộ</option>
+                      <option value="facebook">Facebook</option>
+                      <option value="web">Website</option>
+                    </select>
+                  </div>
+                </th>
+
+                <!-- 8. Số người dùng Filter -->
+                <th class="col-users">
+                  <div class="filter-box">
+                    <select [(ngModel)]="userFilter" (change)="applyFilters()" class="filter-select filter-select--plain">
+                      <option value="">Toàn bộ</option>
+                      <option value="100">100+</option>
+                      <option value="200">200+</option>
+                    </select>
+                  </div>
+                </th>
+
+                <!-- 9. Số kịch bản Search -->
+                <th class="col-scripts">
+                  <div class="filter-box">
+                    <div class="input-with-icon">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8D99BB" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                      <input
+                        type="text"
+                        [(ngModel)]="scriptFilter"
+                        (input)="applyFilters()"
+                        placeholder="Tìm kiếm"
+                        class="filter-input">
+                    </div>
+                  </div>
+                </th>
+
+                <!-- 10. Actions Column Filter Empty -->
+                <th class="col-actions"></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let app of pagedApps; let i = index" class="table-row">
+                <!-- 1. STT -->
+                <td class="col-stt text-center">
+                  {{ (currentPage - 1) * pageSize + i + 1 }}
+                </td>
+
+                <!-- 2. Tên -->
+                <td class="col-name">
+                  {{ app.name }}
+                </td>
+
+                <!-- 3. Người tạo -->
+                <td class="col-creator">
+                  {{ app.creator }}
+                </td>
+
+                <!-- 4. Thời gian tạo -->
+                <td class="col-date">
+                  {{ app.createdAt }}
+                </td>
+
+                <!-- 5. Lĩnh vực -->
+                <td class="col-category">
+                  <span class="tag-badge tag-badge--blue">
+                    {{ app.category }}
+                  </span>
+                </td>
+
+                <!-- 6. Trạng thái -->
+                <td class="col-status">
+                  <span class="status-indicator" [class.status-indicator--active]="app.status === 'Đang sử dụng'" [class.status-indicator--locked]="app.status === 'Tạm khóa'">
+                    <span class="status-dot"></span>
+                    <span class="status-text">{{ app.status }}</span>
+                  </span>
+                </td>
+
+                <!-- 7. Kênh tương tác -->
+                <td class="col-channel">
+                  <div class="channel-icons-group">
+                    <!-- Facebook Icon -->
+                    <span class="channel-icon channel-icon--fb" *ngIf="app.channels.includes('facebook')" title="Facebook">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    </span>
+
+                    <!-- Website / Globe Icon -->
+                    <span class="channel-icon channel-icon--web" *ngIf="app.channels.includes('web')" title="Website">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5680F9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="21" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    </span>
+                  </div>
+                </td>
+
+                <!-- 8. Số người dùng -->
+                <td class="col-users">
+                  {{ app.userCount }}
+                </td>
+
+                <!-- 9. Số kịch bản -->
+                <td class="col-scripts">
+                  {{ app.scriptCount }}
+                </td>
+
+                <!-- 10. Actions -->
+                <td class="col-actions">
+                  <div class="row-actions">
+                    <!-- Edit Button -->
+                    <button type="button" class="action-btn" (click)="openEditModal(app)" title="Chỉnh sửa">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8D99BB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+                    </button>
+
+                    <!-- Lock / Unlock Button -->
+                    <button type="button" class="action-btn" (click)="toggleStatus(app)" [title]="app.status === 'Đang sử dụng' ? 'Tạm khóa' : 'Mở khóa'">
+                      <svg *ngIf="app.status === 'Đang sử dụng'" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8D99BB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                      <svg *ngIf="app.status === 'Tạm khóa'" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ff2f70" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>
+                    </button>
+
+                    <!-- Delete Button -->
+                    <button type="button" class="action-btn action-btn--delete" (click)="confirmDelete(app)" title="Xóa">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8D99BB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Empty State -->
+              <tr *ngIf="filteredApps.length === 0">
+                <td colspan="10" class="empty-state">
+                  Không tìm thấy ứng dụng nào phù hợp với bộ lọc.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Pagination Footer (Outside Table Wrapper, Space-Between) -->
+      <footer class="table-pagination">
+        <div class="pagination-left">
+          <div class="page-size-wrapper">
+            <select [(ngModel)]="pageSize" (change)="applyFilters()" class="page-size-select">
+              <option *ngFor="let size of pageSizeOptions" [value]="size">{{ size }}</option>
+            </select>
+            <svg class="page-size-arrow" width="10" height="7" viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 6.5L0.669873 0.5L9.33013 0.5L5 6.5Z" fill="currentColor"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="pagination-right">
+          <span class="pagination-info">
+            Hiển thị từ {{ startIndex }} tới {{ endIndex }} trên {{ filteredApps.length }} bản ghi
+          </span>
+
+          <nav class="pagination-controls" aria-label="Phân trang">
+            <!-- First Page -->
+            <button type="button" class="page-btn page-btn--nav" [disabled]="currentPage === 1" (click)="setPage(1)" title="Trang đầu">
+              «
+            </button>
+            <!-- Prev Page -->
+            <button type="button" class="page-btn page-btn--nav" [disabled]="currentPage === 1" (click)="setPage(currentPage - 1)" title="Trang trước">
+              ‹
+            </button>
+            <!-- Active Page Number -->
+            <button type="button" class="page-btn page-btn--active">
+              {{ currentPage }}
+            </button>
+            <!-- Next Page -->
+            <button type="button" class="page-btn page-btn--nav" [disabled]="currentPage === totalPages" (click)="setPage(currentPage + 1)" title="Trang sau">
+              ›
+            </button>
+            <!-- Last Page -->
+            <button type="button" class="page-btn page-btn--nav" [disabled]="currentPage === totalPages" (click)="setPage(totalPages)" title="Trang cuối">
+              »
+            </button>
+          </nav>
+        </div>
+      </footer>
+    </main>
+  </div>
+</div>
+</div>
+
+<!-- Modal Thêm / Chỉnh sửa Ứng dụng -->
+<div class="modal-overlay" *ngIf="isModalOpen" (click)="closeModal()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+    <header class="modal-card__header">
+      <h2>{{ isEditMode ? 'Chỉnh sửa ứng dụng' : 'Thêm ứng dụng mới' }}</h2>
+      <button type="button" class="modal-close" (click)="closeModal()">&times;</button>
+    </header>
+
+    <form [formGroup]="appForm" (ngSubmit)="saveApplication()" class="modal-card__body">
+      <div class="form-group">
+        <label for="app-name">Tên ứng dụng <span class="required">*</span></label>
+        <input type="text" id="app-name" formControlName="name" class="form-input" placeholder="Ví dụ: NCCPlus - Tư vấn dịch vụ">
+        <span class="form-error" *ngIf="appForm.get('name')?.invalid && appForm.get('name')?.touched">
+          Tên ứng dụng bắt buộc nhập (tối thiểu 3 ký tự)
+        </span>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group form-group--half">
+          <label for="app-creator">Người tạo <span class="required">*</span></label>
+          <input type="text" id="app-creator" formControlName="creator" class="form-input" placeholder="Ví dụ: Nguyễn Thị Lan">
+        </div>
+
+        <div class="form-group form-group--half">
+          <label for="app-created-at">Thời gian tạo</label>
+          <input type="text" id="app-created-at" formControlName="createdAt" class="form-input" placeholder="DD/MM/YYYY">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group form-group--half">
+          <label for="app-category">Lĩnh vực <span class="required">*</span></label>
+          <select id="app-category" formControlName="category" class="form-select">
+            <option value="Sản phẩm điện tử">Sản phẩm điện tử</option>
+            <option value="Bán lẻ">Bán lẻ</option>
+            <option value="Dịch vụ">Dịch vụ</option>
+            <option value="Gia dụng">Gia dụng</option>
+          </select>
+        </div>
+
+        <div class="form-group form-group--half">
+          <label for="app-status">Trạng thái <span class="required">*</span></label>
+          <select id="app-status" formControlName="status" class="form-select">
+            <option value="Đang sử dụng">Đang sử dụng</option>
+            <option value="Tạm khóa">Tạm khóa</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group form-group--half">
+          <label for="app-users">Số người dùng</label>
+          <input type="number" id="app-users" formControlName="userCount" class="form-input" placeholder="100">
+        </div>
+
+        <div class="form-group form-group--half">
+          <label for="app-scripts">Số kịch bản</label>
+          <input type="text" id="app-scripts" formControlName="scriptCount" class="form-input" placeholder="01">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Kênh tương tác</label>
+        <div class="checkbox-group">
+          <label class="checkbox-label">
+            <input type="checkbox" formControlName="facebookChannel">
+            <span>Facebook</span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" formControlName="webChannel">
+            <span>Website</span>
+          </label>
+        </div>
+      </div>
+
+      <footer class="modal-card__footer">
+        <button type="button" class="btn btn--secondary" (click)="closeModal()">Hủy</button>
+        <button type="submit" class="btn btn--solid-red">{{ isEditMode ? 'Lưu thay đổi' : 'Thêm mới' }}</button>
+      </footer>
+    </form>
+  </div>
+</div>
+
+<!-- Modal Xác nhận Xóa -->
+<div class="modal-overlay" *ngIf="isDeleteModalOpen" (click)="cancelDelete()">
+  <div class="modal-card modal-card--small" (click)="$event.stopPropagation()">
+    <header class="modal-card__header">
+      <h2>Xác nhận xóa ứng dụng</h2>
+      <button type="button" class="modal-close" (click)="cancelDelete()">&times;</button>
+    </header>
+
+    <div class="modal-card__body" *ngIf="appToDelete">
+      <p>Bạn có chắc chắn muốn xóa ứng dụng <strong>"{{ appToDelete.name }}"</strong> không? Thao tác này không thể hoàn tác.</p>
+    </div>
+
+    <footer class="modal-card__footer">
+      <button type="button" class="btn btn--secondary" (click)="cancelDelete()">Hủy</button>
+      <button type="button" class="btn btn--solid-red" (click)="deleteApplication()">Xác nhận xóa</button>
+    </footer>
+  </div>
+</div>
