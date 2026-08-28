@@ -13,7 +13,7 @@ $border-radius-base: 5px;
 }
 
 // ==========================================
-// 1. NARROW LEFT RAIL (Full Height with Logo)
+// 1. NARROW LEFT RAIL
 // ==========================================
 .app-rail {
   display: flex;
@@ -1115,4 +1115,337 @@ $border-radius-base: 5px;
     opacity: 1;
     transform: scale(1) translateY(0);
   }
+}
+
+// ==========================================
+// 6. CREATE APPLICATION WIZARD (PIXEL-ACCURATE)
+// ==========================================
+.app-main--create {
+  padding: 0 !important;
+  display: flex;
+  flex-direction: column;
+  background-color: $white;
+}
+
+.create-app-layout {
+  display: flex;
+  flex-direction: row;
+  min-height: calc(100vh - 44px);
+  width: 100%;
+  background-color: $white;
+}
+
+// Left Stepper Column
+.create-app-stepper {
+  width: 270px;
+  flex-shrink: 0;
+  padding: 24px 20px;
+  border-right: 1px solid $bg-6;
+  background-color: $white;
+  display: flex;
+  flex-direction: column;
+}
+
+.create-stepper-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.stepper-back-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  color: $bg-3;
+  transition: all 0.2s ease;
+
+  svg {
+    stroke: $bg-3;
+    transition: stroke 0.2s ease;
+  }
+
+  &:hover {
+    transform: scale(1.08);
+    svg {
+      stroke: $primary-1;
+    }
+  }
+}
+
+.stepper-header-title {
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  color: $text-primary;
+  margin: 0;
+}
+
+.stepper-timeline {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  padding-left: 2px;
+}
+
+.stepper-node {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  user-select: none;
+  width: 100%;
+}
+
+.stepper-icon-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid $bg-3;
+  background-color: transparent;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+
+  &--active {
+    background-color: $secondary-1;
+    border-color: $secondary-1;
+    box-shadow: 0 3px 10px rgba(86, 128, 249, 0.25);
+  }
+}
+
+.stepper-connector-line {
+  width: 1.5px;
+  height: 40px;
+  background-color: $bg-5;
+  margin: 6px 0 6px 17px;
+}
+
+.stepper-label {
+  display: flex;
+  align-items: center;
+}
+
+.stepper-label-text {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $bg-3;
+  transition: color 0.2s ease;
+  white-space: nowrap;
+
+  &--active {
+    color: $secondary-1;
+    font-weight: $font-weight-bold;
+  }
+}
+
+// Right Form Container
+.create-app-main {
+  flex: 1;
+  min-width: 0;
+  padding: 32px 48px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: $white;
+}
+
+.create-app-title {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  color: $text-primary;
+  margin: 0 0 28px 0;
+}
+
+.create-app-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 860px;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.create-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  width: 100%;
+}
+
+.form-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+
+  &--full {
+    grid-column: 1 / -1;
+  }
+}
+
+.field-label {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  color: $text-secondary;
+
+  .required {
+    color: $primary-1;
+    margin-left: 2px;
+  }
+}
+
+.field-input-box {
+  display: flex;
+  align-items: center;
+  height: 42px;
+  border: 1px solid $bg-5;
+  border-radius: $border-radius-base;
+  background-color: #F4F7FC;
+  padding: 0 14px;
+  transition: all 0.2s ease;
+  position: relative;
+
+  &:focus-within {
+    border-color: $secondary-1;
+    background-color: $white;
+    box-shadow: 0 0 0 2px rgba(86, 128, 249, 0.1);
+  }
+}
+
+.field-lead-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+}
+
+.field-divider {
+  width: 1px;
+  height: 22px;
+  background-color: $bg-5;
+  margin: 0 12px;
+  flex-shrink: 0;
+}
+
+.field-input {
+  flex: 1;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: $font-family-primary;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $text-primary;
+  min-width: 0;
+
+  &::placeholder {
+    color: $bg-3;
+  }
+}
+
+.field-select-box {
+  background-color: $white;
+  cursor: pointer;
+}
+
+.field-select {
+  flex: 1;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: $font-family-primary;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $text-primary;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  min-width: 0;
+}
+
+.field-trail-arrow {
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  margin-left: 8px;
+}
+
+.field-textarea {
+  width: 100%;
+  min-height: 110px;
+  padding: 12px 14px;
+  border: 1px solid $bg-5;
+  border-radius: $border-radius-base;
+  font-family: $font-family-primary;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $text-primary;
+  outline: none;
+  resize: vertical;
+  line-height: 1.5;
+  background-color: $white;
+  transition: all 0.2s ease;
+
+  &:focus {
+    border-color: $secondary-1;
+    box-shadow: 0 0 0 2px rgba(86, 128, 249, 0.1);
+  }
+
+  &::placeholder {
+    color: $bg-3;
+  }
+}
+
+.create-form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 18px;
+  width: 100%;
+}
+
+.btn--form-action {
+  min-width: 130px;
+  height: 40px;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-bold;
+  border-radius: $border-radius-base;
+}
+
+.btn--solid-pink {
+  background-color: $primary-2;
+  color: $white;
+  border: 1px solid $primary-2;
+
+  &:hover {
+    background-color: $primary-1;
+    border-color: $primary-1;
+  }
+}
+
+// Watermark Graphic (Illustration)
+.create-app-watermark {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  pointer-events: none;
+  z-index: 1;
+  user-select: none;
+  opacity: 0.9;
 }

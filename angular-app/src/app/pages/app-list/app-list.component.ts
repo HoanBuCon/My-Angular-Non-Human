@@ -36,6 +36,23 @@ export class AppListComponent implements OnInit {
   currentPage: number = 1;
   pageSizeOptions: number[] = [10, 20, 50];
 
+  // View mode state
+  viewMode: 'list' | 'create' = 'list';
+  currentStep: number = 1;
+
+  // Create App Form
+  createForm!: FormGroup;
+  categoryList: string[] = [
+    'Chăm sóc khách hàng',
+    'Tư vấn bán hàng',
+    'Sản phẩm điện tử',
+    'Tài chính - Ngân hàng',
+    'Thời trang',
+    'Giáo dục',
+    'Y tế - Sức khỏe',
+    'Khác'
+  ];
+
   // Modals state
   isModalOpen: boolean = false;
   isEditMode: boolean = false;
@@ -57,9 +74,18 @@ export class AppListComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+    this.initCreateForm();
     this.appService.getApplications().subscribe(apps => {
       this.applications = apps;
       this.applyFilters();
+    });
+  }
+
+  private initCreateForm(): void {
+    this.createForm = this.fb.group({
+      name: ['Chăm sóc khách hàng', [Validators.required, Validators.minLength(2)]],
+      category: ['', [Validators.required]],
+      description: ['Cung cấp giải quyết vấn đề về sản phẩm và dịch vụ, giải đáp các thông tin chương trình quảng cáo và khuyến mãi']
     });
   }
 
@@ -170,21 +196,54 @@ export class AppListComponent implements OnInit {
     }
   }
 
-  openAddModal(): void {
-    this.isEditMode = false;
-    this.selectedAppId = null;
-    this.appForm.reset({
-      name: '',
-      creator: '',
+  // ==========================================
+  // CREATE APP WIZARD METHODS
+  // ==========================================
+  openCreatePage(): void {
+    this.viewMode = 'create';
+    this.currentStep = 1;
+    this.createForm.reset({
+      name: 'Chăm sóc khách hàng',
+      category: '',
+      description: 'Cung cấp giải quyết vấn đề về sản phẩm và dịch vụ, giải đáp các thông tin chương trình quảng cáo và khuyến mãi'
+    });
+  }
+
+  goBackToList(): void {
+    this.viewMode = 'list';
+    this.currentStep = 1;
+  }
+
+  setStep(step: number): void {
+    this.currentStep = step;
+  }
+
+  saveCreateApp(): void {
+    if (this.createForm.invalid) {
+      this.createForm.markAllAsTouched();
+      this.toast.error('Vui lòng điền đầy đủ các trường bắt buộc (*)');
+      return;
+    }
+
+    const val = this.createForm.value;
+    const newApp = {
+      name: val.name,
+      creator: 'Nguyễn Thị Lan',
       createdAt: this.getCurrentDateFormatted(),
-      category: 'Sản phẩm điện tử',
-      status: 'Đang sử dụng',
-      facebookChannel: true,
-      webChannel: false,
+      category: val.category || 'Chăm sóc khách hàng',
+      status: 'Đang sử dụng' as const,
+      channels: ['facebook', 'web'] as ('facebook' | 'web')[],
       userCount: 100,
       scriptCount: '01'
-    });
-    this.isModalOpen = true;
+    };
+
+    this.appService.addApplication(newApp);
+    this.toast.success('Tạo thông tin ứng dụng thành công!');
+    this.viewMode = 'list';
+  }
+
+  openAddModal(): void {
+    this.openCreatePage();
   }
 
   openEditModal(app: Application): void {
