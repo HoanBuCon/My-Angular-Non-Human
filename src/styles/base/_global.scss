@@ -1,0 +1,33 @@
+@import '../abstracts/variables';
+
+html,
+body {
+  font-family: $font-family-primary;
+  font-size: $font-size-md;
+  color: $text-primary;
+  background-color: $page-bg;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  font-family: inherit;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: $font-family-primary !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-family-primary;
+}
+
+p, span, label, a, td, th, li, div {
+  font-family: $font-family-primary;
+}

@@ -319,7 +319,8 @@
   font-size: 16px;
   color: #8D99BB;
   background: #ffffff;
-  transition: top 0.2s ease-in-out, transform 0.2s ease-in-out, font-size 0.2s ease-in-out, color 0.2s ease-in-out;
+  padding: 0 4px;
+  transition: top 0.2s ease-in-out, transform 0.2s ease-in-out, font-size 0.2s ease-in-out, color 0.2s ease-in-out, padding 0.2s ease-in-out;
   cursor: text;
   -webkit-user-select: none;
   -moz-user-select: none;

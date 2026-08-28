@@ -39,6 +39,7 @@
     }
 
     &__title {
+        color: $secondary-1;
         font-weight: $font-weight-medium;
         font-size: $font-size-2xl; // Default: 24px
         margin-top: 16px;
@@ -52,6 +53,7 @@
     }
 
     &__description {
+        color: $secondary-1;
         font-weight: $font-weight-medium;
         font-size: $font-size-lg; // Default: 18px
         margin-top: 8px;
