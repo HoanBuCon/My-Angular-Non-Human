@@ -1,5 +1,6 @@
-# i changed something
+# Welcome to M.A.N.H (My Angular Non Human) project
 
-Demo account: admin@vss.vn
-Pasword: 123456
-![Genius](src/assets/genius.png)
+## Demo account:
+
+`admin@vss.vn`
+`123456`

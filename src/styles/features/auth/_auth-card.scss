@@ -167,11 +167,13 @@
         font-size: $font-size-md;
         color: $text-placeholder;
         background: $page-bg;
+        padding: 0 4px;
         transition:
             top .2s ease-in-out,
             transform .2s ease-in-out,
             font-size .2s ease-in-out,
-            color .2s ease-in-out;
+            color .2s ease-in-out,
+            padding .2s ease-in-out;
         cursor: text;
         @include user-select(none);
         pointer-events: none;

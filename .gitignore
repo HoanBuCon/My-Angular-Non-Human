@@ -1,110 +1,47 @@
-# =========================================================
-# Environment
-# =========================================================
-.env
-.env.*
-!.env.example
+# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
 
-# =========================================================
-# Dependencies
-# =========================================================
-node_modules/
+# Compiled output
+/dist
+/tmp
+/out-tsc
+/bazel-out
 
-# =========================================================
-# Build Output
-# =========================================================
-dist/
-build/
-coverage/
+# Node
+/node_modules
+npm-debug.log
+yarn-error.log
 
-# =========================================================
-# Cache
-# =========================================================
-.cache/
-.parcel-cache/
-.vite/
-.eslintcache
-.sass-cache/
-*.tsbuildinfo
-
-# =========================================================
-# Logs
-# =========================================================
-logs/
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-
-# =========================================================
-# IDE
-# =========================================================
-.vscode/
-!.vscode/extensions.json
-!.vscode/settings.json
-
+# IDEs and editors
 .idea/
-*.iml
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
 
-# =========================================================
-# OS Files
-# =========================================================
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/mcp.json
+.history/*
+
+# Miscellaneous
+/.angular/cache
+.sass-cache/
+/connect.lock
+/coverage
+/libpeerconnection.log
+testem.log
+/typings
+__screenshots__/
+
+# System files
 .DS_Store
 Thumbs.db
-desktop.ini
-
-# =========================================================
-# Temporary Files
-# =========================================================
-tmp/
-temp/
-*.tmp
-*.swp
-*.swo
-
-# =========================================================
-# Runtime
-# =========================================================
-*.pid
-*.seed
-
-# =========================================================
-# Package Managers
-# =========================================================
-.pnpm-store/
-.npm/
-.yarn/
-.yarn/cache/
-.yarn/unplugged/
-.yarn/build-state.yml
-.yarn/install-state.gz
-
-# =========================================================
-# Testing
-# =========================================================
-playwright-report/
-test-results/
-
-# Cypress
-cypress/videos/
-cypress/screenshots/
-
-# =========================================================
-# Misc
-# =========================================================
-*.bak
-*.orig
-
-# =========================================================
-# Archives
-# =========================================================
-*.zip
-*.rar
-*.7z
-*.tar
-*.gz
-*.tgz
-*.bz2
-*.xz
 .vercel
+
+.env*
