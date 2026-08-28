@@ -8,7 +8,7 @@ $border-radius-base: 5px;
   flex-direction: row;
   min-height: 100vh;
   width: 100%;
-  background-color: $bg-7;
+  background-color: $white;
   font-family: $font-family-primary;
 }
 
@@ -23,7 +23,7 @@ $border-radius-base: 5px;
   width: 56px;
   min-height: 100vh;
   padding: 10px 0 16px 0;
-  background-color: $bg-7;
+  background-color: $white;
   border-right: none;
   box-shadow: 0px 0px 9px 0px #5655D23D;
   flex-shrink: 0;
@@ -135,7 +135,7 @@ $border-radius-base: 5px;
   flex: 1;
   min-height: 100vh;
   min-width: 0;
-  background-color: $bg-7;
+  background-color: $white;
 }
 
 // Topbar - sits directly above Submenu & Main content
@@ -145,7 +145,7 @@ $border-radius-base: 5px;
   justify-content: space-between;
   height: 44px;
   padding: 0 24px 0 0;
-  background-color: $bg-7;
+  background-color: $white;
   border-bottom: 1px solid $bg-5;
   z-index: 10;
 
@@ -242,7 +242,7 @@ $border-radius-base: 5px;
   gap: 12px;
   height: 100%;
   padding: 0 20px;
-  background: $bg-6;
+  background-color: $bg-7;
   border: none;
   border-radius: 0;
   margin: 0;
@@ -295,7 +295,7 @@ $border-radius-base: 5px;
 .app-submenu {
   width: 210px;
   padding: 24px 0;
-  background-color: $bg-6;
+  background-color: $bg-7;
   border-right: none;
   box-shadow: none;
   flex-shrink: 0;
@@ -366,7 +366,7 @@ $border-radius-base: 5px;
 .app-main {
   flex: 1;
   padding: 24px 32px;
-  background-color: $bg-7;
+  background-color: $white;
   overflow-x: auto;
 }
 
@@ -447,7 +447,7 @@ $border-radius-base: 5px;
 // 4. DATA TABLE
 // ==========================================
 .app-table-wrapper {
-  background: $bg-7;
+  background: $white;
   border: 1px solid $bg-6;
   border-radius: $border-radius-base;
   overflow: hidden;
@@ -471,10 +471,11 @@ $border-radius-base: 5px;
 
   // Header styles
   thead {
-    background-color: $bg-6;
+    background-color: $bg-7;
     border-bottom: 1px solid $bg-6;
 
     .table-title-row {
+      background-color: $bg-7;
       border-bottom: 1px solid $bg-6;
 
       th {
@@ -482,6 +483,7 @@ $border-radius-base: 5px;
         color: $bg-2;
         font-size: $font-size-md;
         padding: 12px 14px 8px 14px;
+        background-color: $bg-7;
         border-right: 1px solid $bg-6;
 
         &:last-child {
@@ -491,11 +493,11 @@ $border-radius-base: 5px;
     }
 
     .table-filter-row {
-      background-color: $bg-7;
+      background-color: $white;
 
       th {
         padding: 6px 14px 12px 14px;
-        background-color: $bg-7;
+        background-color: $white;
         border-right: 1px solid $bg-6;
 
         &:last-child {
