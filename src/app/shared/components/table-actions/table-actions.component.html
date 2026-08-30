@@ -5,6 +5,7 @@
     type="button"
     class="action-btn action-btn--edit"
     (click)="onEdit($event)"
+    [nz-tooltip]="editTooltip"
     [title]="editTooltip"
     aria-label="Chỉnh sửa"
   >
@@ -20,6 +21,7 @@
     class="action-btn action-btn--lock"
     [class.action-btn--locked]="isCurrentlyLocked"
     (click)="onToggleLock($event)"
+    [nz-tooltip]="isCurrentlyLocked ? unlockTooltip : lockTooltip"
     [title]="isCurrentlyLocked ? unlockTooltip : lockTooltip"
     [attr.aria-label]="isCurrentlyLocked ? unlockTooltip : lockTooltip"
   >
@@ -41,6 +43,7 @@
     type="button"
     class="action-btn action-btn--delete"
     (click)="onDelete($event)"
+    [nz-tooltip]="deleteTooltip"
     [title]="deleteTooltip"
     aria-label="Xóa"
   >

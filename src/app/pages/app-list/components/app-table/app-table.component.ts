@@ -1,6 +1,9 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject, DestroyRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Application, ApplicationFilter } from '../../../../models/application.model';
 import { TableActionsComponent } from '../../../../shared/components/table-actions/table-actions.component';
 
@@ -11,7 +14,10 @@ import { TableActionsComponent } from '../../../../shared/components/table-actio
   templateUrl: './app-table.component.html',
   styleUrls: ['./app-table.component.scss']
 })
-export class AppTableComponent {
+export class AppTableComponent implements OnInit {
+  private destroyRef = inject(DestroyRef);
+  private filterSubject = new Subject<ApplicationFilter>();
+
   @Input() applications: Application[] = [];
   @Input() totalCount: number = 0;
   @Input() sortColumn: string = 'id';
@@ -43,8 +49,17 @@ export class AppTableComponent {
   userFilter: string = '';
   scriptFilter: string = '';
 
+  ngOnInit(): void {
+    this.filterSubject.pipe(
+      debounceTime(300),
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe(filter => {
+      this.filterChange.emit(filter);
+    });
+  }
+
   applyFilters(): void {
-    this.filterChange.emit({
+    this.filterSubject.next({
       name: this.nameFilter,
       creator: this.creatorFilter,
       createdAt: this.dateFilter,
