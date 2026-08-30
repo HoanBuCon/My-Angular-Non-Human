@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject, DestroyRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { UserService, User } from '../../services/user.service';
 import { ToastService } from '../../services/toast.service';
 
@@ -13,9 +16,16 @@ import { ToastService } from '../../services/toast.service';
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent implements OnInit {
+  private userService = inject(UserService);
+  private fb = inject(FormBuilder);
+  private toast = inject(ToastService);
+  private router = inject(Router);
+  private destroyRef = inject(DestroyRef);
+
   users: User[] = [];
   filteredUsers: User[] = [];
   searchQuery: string = '';
+  private searchSubject = new BehaviorSubject<string>('');
 
   // Modal State
   isModalOpen: boolean = false;
@@ -28,19 +38,9 @@ export class UserListComponent implements OnInit {
   isDeleteModalOpen: boolean = false;
   userToDelete: User | null = null;
 
-  constructor(
-    private userService: UserService,
-    private fb: FormBuilder,
-    private toast: ToastService,
-    private router: Router
-  ) {}
-
   ngOnInit(): void {
     this.initForm();
-    this.userService.getUsers().subscribe((data) => {
-      this.users = data;
-      this.applyFilter();
-    });
+    this.initUserStream();
   }
 
   private initForm(): void {
@@ -52,17 +52,33 @@ export class UserListComponent implements OnInit {
     });
   }
 
+  private initUserStream(): void {
+    const search$ = this.searchSubject.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      map(q => q.toLowerCase().trim())
+    );
+
+    combineLatest([this.userService.users$, search$])
+      .pipe(
+        map(([users, query]) => {
+          this.users = users;
+          if (!query) return users;
+          return users.filter(user =>
+            user.first_name.toLowerCase().includes(query) ||
+            user.last_name.toLowerCase().includes(query) ||
+            user.email.toLowerCase().includes(query)
+          );
+        }),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe(filtered => {
+        this.filteredUsers = filtered;
+      });
+  }
+
   applyFilter(): void {
-    const query = this.searchQuery.toLowerCase().trim();
-    if (!query) {
-      this.filteredUsers = [...this.users];
-    } else {
-      this.filteredUsers = this.users.filter(user =>
-        user.first_name.toLowerCase().includes(query) ||
-        user.last_name.toLowerCase().includes(query) ||
-        user.email.toLowerCase().includes(query)
-      );
-    }
+    this.searchSubject.next(this.searchQuery);
   }
 
   openAddModal(): void {

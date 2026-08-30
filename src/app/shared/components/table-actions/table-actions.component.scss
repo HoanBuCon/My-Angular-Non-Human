@@ -1,0 +1,83 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+:host {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+}
+
+.table-actions-group {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  color: $bg-3;
+  cursor: pointer;
+  border-radius: $radius-sm;
+  transition: all $transition-fast;
+  padding: 0;
+
+  svg {
+    stroke: $bg-3;
+    transition: stroke $transition-fast, transform $transition-fast;
+  }
+
+  &:hover {
+    background-color: $bg-6 !important;
+
+    svg {
+      transform: scale(1.08);
+    }
+  }
+
+  &--edit:hover {
+    color: $secondary-1;
+    svg {
+      stroke: $secondary-1;
+    }
+  }
+
+  &--lock:hover {
+    color: $primary-1;
+    svg {
+      stroke: $primary-1;
+    }
+  }
+
+  &--locked {
+    color: $failure-1;
+    svg {
+      stroke: $failure-1;
+    }
+
+    &:hover {
+      background-color: $bg-6 !important;
+      svg {
+        stroke: $failure-1;
+      }
+    }
+  }
+
+  &--delete:hover {
+    color: $failure-1;
+    background-color: $bg-6 !important;
+    svg {
+      stroke: $failure-1;
+    }
+  }
+}

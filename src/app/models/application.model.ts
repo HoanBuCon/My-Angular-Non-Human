@@ -8,6 +8,7 @@ export interface Application {
   channels: ('facebook' | 'web')[];
   userCount: number;
   scriptCount: string;
+  description?: string;
 }
 
 export interface ApplicationFilter {
@@ -19,4 +20,18 @@ export interface ApplicationFilter {
   channel: string;
   userCount: string;
   scriptCount: string;
+}
+
+export interface AssignedUser {
+  id: number;
+  name: string;
+  email: string;
+  role: 'Quản trị viên' | 'Tư vấn viên' | 'Nhân viên';
+}
+
+export interface CreateAppWizardPayload {
+  name: string;
+  category: string;
+  description: string;
+  assignedUsers: AssignedUser[];
 }

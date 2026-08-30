@@ -1,0 +1,272 @@
+<section class="app-table-wrapper">
+  <div class="table-responsive">
+    <table class="app-table">
+      <thead>
+        <tr class="table-title-row">
+          <th class="col-stt">STT</th>
+          <th class="col-name">Tên</th>
+          <th class="col-creator">Người tạo</th>
+          <th class="col-date">Thời gian tạo</th>
+          <th class="col-category">Lĩnh vực</th>
+          <th class="col-status">Trạng thái</th>
+          <th class="col-channel">Kênh tương tác</th>
+          <th class="col-users">Số người dùng</th>
+          <th class="col-scripts">Số kịch bản</th>
+          <th class="col-actions"></th>
+        </tr>
+
+        <tr class="table-filter-row">
+          <!-- 1. STT Sort -->
+          <th class="col-stt text-center">
+            <button type="button" class="btn-sort" (click)="toggleSort('id')" title="Sắp xếp theo STT" aria-label="Sắp xếp theo STT">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M7 15l5 5 5-5"/><path d="M7 9l5-5 5 5"/>
+              </svg>
+            </button>
+          </th>
+
+          <!-- 2. Tên Search & Sort -->
+          <th class="col-name">
+            <div class="filter-box">
+              <div class="input-with-icon">
+                <svg class="filter-search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
+                <input
+                  type="text"
+                  [(ngModel)]="nameFilter"
+                  (input)="applyFilters()"
+                  placeholder="Tìm kiếm"
+                  class="filter-input"
+                  aria-label="Tìm kiếm theo tên"
+                >
+              </div>
+              <button type="button" class="btn-sort" (click)="toggleSort('name')" title="Sắp xếp theo Tên" aria-label="Sắp xếp theo Tên">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M7 15l5 5 5-5"/><path d="M7 9l5-5 5 5"/>
+                </svg>
+              </button>
+            </div>
+          </th>
+
+          <!-- 3. Người tạo Search -->
+          <th class="col-creator">
+            <div class="filter-box">
+              <div class="input-with-icon">
+                <svg class="filter-search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
+                <input
+                  type="text"
+                  [(ngModel)]="creatorFilter"
+                  (input)="applyFilters()"
+                  placeholder="Tìm kiếm"
+                  class="filter-input"
+                  aria-label="Tìm kiếm người tạo"
+                >
+              </div>
+            </div>
+          </th>
+
+          <!-- 4. Thời gian tạo Date picker -->
+          <th class="col-date">
+            <div class="filter-box">
+              <div class="input-with-icon">
+                <svg class="filter-calendar-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                  <line x1="16" y1="2" x2="16" y2="6"/>
+                  <line x1="8" y1="2" x2="8" y2="6"/>
+                  <line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+                <input
+                  type="text"
+                  [(ngModel)]="dateFilter"
+                  (input)="applyFilters()"
+                  placeholder="Chọn thời gian"
+                  class="filter-input filter-input--date"
+                  aria-label="Chọn thời gian tạo"
+                >
+              </div>
+            </div>
+          </th>
+
+          <!-- 5. Lĩnh vực Select -->
+          <th class="col-category">
+            <div class="filter-box">
+              <div class="select-with-icon">
+                <select
+                  [(ngModel)]="categoryFilter"
+                  (change)="applyFilters()"
+                  class="filter-select filter-select--plain"
+                  aria-label="Lọc theo lĩnh vực"
+                >
+                  <option value="">Toàn bộ</option>
+                  <option *ngFor="let cat of categoryList" [value]="cat">{{ cat }}</option>
+                </select>
+              </div>
+            </div>
+          </th>
+
+          <!-- 6. Trạng thái Select -->
+          <th class="col-status">
+            <div class="filter-box">
+              <div class="select-with-icon">
+                <select
+                  [(ngModel)]="statusFilter"
+                  (change)="applyFilters()"
+                  class="filter-select filter-select--plain"
+                  aria-label="Lọc theo trạng thái"
+                >
+                  <option value="">Toàn bộ</option>
+                  <option value="Đang sử dụng">Đang sử dụng</option>
+                  <option value="Tạm khóa">Tạm khóa</option>
+                </select>
+              </div>
+            </div>
+          </th>
+
+          <!-- 7. Kênh tương tác Select -->
+          <th class="col-channel">
+            <div class="filter-box">
+              <div class="select-with-icon">
+                <select
+                  [(ngModel)]="channelFilter"
+                  (change)="applyFilters()"
+                  class="filter-select filter-select--plain"
+                  aria-label="Lọc theo kênh"
+                >
+                  <option value="">Toàn bộ</option>
+                  <option value="facebook">Facebook</option>
+                  <option value="web">Website</option>
+                </select>
+              </div>
+            </div>
+          </th>
+
+          <!-- 8. Số người dùng Search/Filter -->
+          <th class="col-users">
+            <div class="filter-box">
+              <div class="input-with-icon">
+                <svg class="filter-search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
+                <input
+                  type="text"
+                  [(ngModel)]="userFilter"
+                  (input)="applyFilters()"
+                  placeholder="Tìm kiếm"
+                  class="filter-input"
+                  aria-label="Tìm kiếm số người dùng"
+                >
+              </div>
+            </div>
+          </th>
+
+          <!-- 9. Số kịch bản Select -->
+          <th class="col-scripts">
+            <div class="filter-box">
+              <div class="select-with-icon">
+                <select
+                  [(ngModel)]="scriptFilter"
+                  (change)="applyFilters()"
+                  class="filter-select filter-select--plain"
+                  aria-label="Lọc theo số kịch bản"
+                >
+                  <option value="">Toàn bộ</option>
+                  <option value="01">01</option>
+                  <option value="02">02</option>
+                  <option value="03">03</option>
+                </select>
+              </div>
+            </div>
+          </th>
+
+          <!-- 10. Actions Header (Empty) -->
+          <th class="col-actions"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let app of applications; let i = index" class="table-row">
+          <!-- 1. STT -->
+          <td class="col-stt text-center">
+            {{ app.id }}
+          </td>
+
+          <!-- 2. Tên -->
+          <td class="col-name">
+            {{ app.name }}
+          </td>
+
+          <!-- 3. Người tạo -->
+          <td class="col-creator">
+            {{ app.creator }}
+          </td>
+
+          <!-- 4. Thời gian tạo -->
+          <td class="col-date">
+            {{ app.createdAt }}
+          </td>
+
+          <!-- 5. Lĩnh vực -->
+          <td class="col-category">
+            <span class="tag-badge tag-badge--blue">{{ app.category }}</span>
+          </td>
+
+          <!-- 6. Trạng thái -->
+          <td class="col-status">
+            <span class="status-indicator" [ngClass]="app.status === 'Đang sử dụng' ? 'status--active' : 'status--locked'">
+              <span class="status-dot"></span>
+              {{ app.status }}
+            </span>
+          </td>
+
+          <!-- 7. Kênh tương tác -->
+          <td class="col-channel">
+            <div class="channel-icons-group">
+              <span class="channel-icon channel-icon--fb" *ngIf="app.channels.includes('facebook')" title="Facebook">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="#1877F2">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+              </span>
+              <span class="channel-icon channel-icon--web" *ngIf="app.channels.includes('web')" title="Website">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                </svg>
+              </span>
+            </div>
+          </td>
+
+          <!-- 8. Số người dùng -->
+          <td class="col-users">
+            {{ app.userCount }}
+          </td>
+
+          <!-- 9. Số kịch bản -->
+          <td class="col-scripts">
+            {{ app.scriptCount }}
+          </td>
+
+          <!-- 10. Actions -->
+          <td class="col-actions">
+            <app-table-actions
+              [showEdit]="true"
+              [showLock]="true"
+              [showDelete]="true"
+              [status]="app.status"
+              (edit)="onEdit(app)"
+              (toggleLock)="onToggleLock(app)"
+              (delete)="onDelete(app)"
+            ></app-table-actions>
+          </td>
+        </tr>
+
+        <tr *ngIf="applications.length === 0">
+          <td colspan="10" class="empty-state">
+            Không tìm thấy ứng dụng nào phù hợp với bộ lọc.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
