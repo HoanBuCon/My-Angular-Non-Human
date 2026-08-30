@@ -1,0 +1,204 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba($black, 0.45);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: $z-modal;
+  padding: $spacing-xl;
+}
+
+.modal-card {
+  width: 100%;
+  max-width: 540px;
+  background: $bg-7;
+  border-radius: $radius-md;
+  box-shadow: $shadow-lg;
+  overflow: hidden;
+  animation: modalFadeIn 0.2s ease-out;
+  font-family: $font-family-primary;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: $spacing-lg $spacing-2xl;
+    border-bottom: 1px solid $bg-5;
+
+    h2 {
+      margin: 0;
+      font-size: $font-size-lg;
+      font-weight: $font-weight-bold;
+      color: $text-primary;
+      font-family: $font-family-primary;
+    }
+  }
+
+  &__body {
+    padding: $spacing-xl $spacing-2xl;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+    font-family: $font-family-primary;
+
+    p, span, label {
+      font-family: $font-family-primary;
+    }
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: $spacing-md;
+    padding: $spacing-lg $spacing-2xl;
+    border-top: 1px solid $bg-5;
+    background-color: $bg-6;
+    font-family: $font-family-primary;
+  }
+}
+
+.modal-close {
+  background: transparent;
+  border: none;
+  font-size: $font-size-2xl;
+  line-height: 1;
+  color: $bg-3;
+  cursor: pointer;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: $primary-1;
+  }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+
+  label {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    color: $text-primary;
+
+    .required {
+      color: $failure-1;
+    }
+  }
+
+  &--half {
+    flex: 1;
+  }
+}
+
+.form-row {
+  display: flex;
+  gap: $spacing-lg;
+}
+
+.form-input,
+.form-select {
+  width: 100%;
+  height: 38px;
+  padding: $spacing-xs $spacing-md;
+  font-family: $font-family-primary;
+  font-size: $font-size-sm;
+  color: $text-primary;
+  background-color: $white;
+  border: 1px solid $bg-5;
+  border-radius: $radius-md;
+  outline: none;
+  transition: border-color $transition-normal;
+
+  &::placeholder {
+    color: $bg-3;
+  }
+
+  &:focus {
+    border-color: $primary-1;
+  }
+}
+
+.form-error {
+  font-size: $font-size-xs;
+  color: $failure-1;
+}
+
+.checkbox-group {
+  display: flex;
+  gap: $spacing-2xl;
+  margin-top: $spacing-xs;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  font-size: $font-size-sm;
+  color: $text-primary;
+  cursor: pointer;
+
+  input[type="checkbox"] {
+    accent-color: $primary-1;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+  }
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  padding: 0 $spacing-xl;
+  font-family: $font-family-primary;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  border-radius: $radius-md;
+  cursor: pointer;
+  transition: all $transition-normal;
+  border: 1px solid transparent;
+
+  &--secondary {
+    background-color: $white;
+    border-color: $bg-5;
+    color: $bg-1;
+
+    &:hover {
+      background-color: $bg-7;
+    }
+  }
+
+  &--solid-red {
+    background-color: $primary-1;
+    color: $white;
+    border-color: $primary-1;
+
+    &:hover {
+      background-color: $primary-4;
+      border-color: $primary-4;
+    }
+  }
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
