@@ -61,8 +61,79 @@ $bg-5: #CBD7E8;
 $bg-6: #f8f9fc;
 $bg-7: #EFF2F6; 
 
-// Shadow
+// Extended Brand & System Palette
+$info-1: #1890ff;
+$info-2: #40a9ff;
+$info-3: #e6f7ff;
+
+$purple-1: #722ed1;
+$purple-2: #9254de;
+$purple-3: #f9f0ff;
+
+$orange-1: #fa8c16;
+$orange-2: #ffa940;
+$orange-3: #fff7e6;
+
+$cyan-1: #13c2c2;
+$cyan-2: #36cfc9;
+$cyan-3: #e6fffb;
+
+// Code & Terminal Console Tokens
+$console-bg: #1e1e24;
+$console-header: #282a36;
+$console-border: #383a4c;
+$console-text: #f8f8f2;
+$console-muted: #6272a4;
+
+// Spacing Tokens
+$spacing-2xs: 2px;
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 12px;
+$spacing-lg: 16px;
+$spacing-xl: 20px;
+$spacing-2xl: 24px;
+$spacing-3xl: 32px;
+$spacing-4xl: 40px;
+$spacing-5xl: 48px;
+$spacing-6xl: 64px;
+
+// Border Radius Tokens
+$radius-xs: 2px;
+$radius-sm: 4px;
+$radius-md: 6px;
+$radius-lg: 8px;
+$radius-xl: 12px;
+$radius-2xl: 16px;
+$radius-3xl: 20px;
+$radius-round: 50%;
+$radius-pill: 9999px;
+
+// Shadow Tokens
+$shadow-none: none;
+$shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+$shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+$shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+$shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+$shadow-card: 0 4px 20px rgba(0, 0, 0, 0.05);
+$shadow-hover: 0 8px 28px rgba(0, 0, 0, 0.12);
 $shadow-gradient-blue: 0px 4px 24px #5655D23D;
+
+// Transition Tokens
+$transition-fast: 0.15s ease;
+$transition-normal: 0.25s ease;
+$transition-slow: 0.4s ease;
+$transition-bounce: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+// Z-Index Tokens
+$z-dropdown: 1000;
+$z-sticky: 1020;
+$z-fixed: 1030;
+$z-modal-backdrop: 1040;
+$z-modal: 1050;
+$z-popover: 1060;
+$z-tooltip: 1070;
+$z-toast: 2000;
 
 // ======================================================
 // SEMANTIC
@@ -103,6 +174,7 @@ $success-color: $success-1;
 // FONT FAMILY
 // ======================================================
 $font-family-primary: "Quicksand", sans-serif;
+$font-family-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
 
 // Font Size
 $font-size-xs: 12px;

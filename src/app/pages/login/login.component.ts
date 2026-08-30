@@ -1,7 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, inject, DestroyRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { timer } from 'rxjs';
+import { map, take, tap } from 'rxjs/operators';
 import { ToastService } from '../../services/toast.service';
 
 @Component({
@@ -11,22 +14,20 @@ import { ToastService } from '../../services/toast.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit {
+  private fb = inject(FormBuilder);
+  private router = inject(Router);
+  private toast = inject(ToastService);
+  private destroyRef = inject(DestroyRef);
+
   loginForm!: FormGroup;
   showPassword = false;
   failedAttempts = 0;
   isLocked = false;
   lockoutSeconds = 60;
   isSubmitted = false;
-  private timer: any = null;
 
   private readonly MAX_ATTEMPTS = 5;
-
-  constructor(
-    private fb: FormBuilder,
-    private router: Router,
-    private toast: ToastService
-  ) {}
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -40,12 +41,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     if (this.failedAttempts >= this.MAX_ATTEMPTS) {
       this.startLockout();
-    }
-  }
-
-  ngOnDestroy(): void {
-    if (this.timer) {
-      clearInterval(this.timer);
     }
   }
 
@@ -98,18 +93,27 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   private startLockout(): void {
     this.isLocked = true;
-    this.lockoutSeconds = 60;
+    const initialSeconds = 60;
+    this.lockoutSeconds = initialSeconds;
     this.toast.error(`Bạn đã nhập sai quá ${this.MAX_ATTEMPTS} lần. Tài khoản tạm thời bị khóa 60 giây!`, 5000);
 
-    this.timer = setInterval(() => {
-      this.lockoutSeconds--;
-      if (this.lockoutSeconds <= 0) {
-        clearInterval(this.timer);
-        this.isLocked = false;
-        this.failedAttempts = 0;
-        sessionStorage.setItem('login_failed_attempts', '0');
-        this.toast.info('Hết thời gian chờ. Bạn có thể đăng nhập lại.');
-      }
-    }, 1000);
+    // Sử dụng RxJS timer thay thế setInterval thủ công
+    timer(0, 1000)
+      .pipe(
+        take(initialSeconds + 1),
+        map(elapsed => initialSeconds - elapsed),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe({
+        next: remaining => {
+          this.lockoutSeconds = remaining;
+          if (remaining <= 0) {
+            this.isLocked = false;
+            this.failedAttempts = 0;
+            sessionStorage.setItem('login_failed_attempts', '0');
+            this.toast.info('Hết thời gian chờ. Bạn có thể đăng nhập lại.');
+          }
+        }
+      });
   }
 }

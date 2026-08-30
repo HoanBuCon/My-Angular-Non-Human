@@ -1,0 +1,111 @@
+<div class="modal-overlay" *ngIf="isOpen" (click)="onClose()">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+    <header class="modal-card__header">
+      <h2>{{ isEditMode ? 'Chỉnh sửa ứng dụng' : 'Thêm ứng dụng mới' }}</h2>
+      <button type="button" class="modal-close" (click)="onClose()" aria-label="Đóng">&times;</button>
+    </header>
+
+    <form [formGroup]="appForm" (ngSubmit)="onSave()" class="modal-card__body">
+      <div class="form-group">
+        <label for="modal-app-name">Tên ứng dụng <span class="required">*</span></label>
+        <input
+          type="text"
+          id="modal-app-name"
+          formControlName="name"
+          class="form-input"
+          placeholder="Ví dụ: NCCPlus - Tư vấn dịch vụ"
+        >
+        <span class="form-error" *ngIf="appForm.get('name')?.invalid && appForm.get('name')?.touched">
+          Tên ứng dụng bắt buộc nhập (tối thiểu 3 ký tự)
+        </span>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group form-group--half">
+          <label for="modal-app-creator">Người tạo <span class="required">*</span></label>
+          <input
+            type="text"
+            id="modal-app-creator"
+            formControlName="creator"
+            class="form-input"
+            placeholder="Ví dụ: Nguyễn Thị Lan"
+          >
+        </div>
+
+        <div class="form-group form-group--half">
+          <label for="modal-app-created-at">Thời gian tạo</label>
+          <input
+            type="text"
+            id="modal-app-created-at"
+            formControlName="createdAt"
+            class="form-input"
+            placeholder="DD/MM/YYYY"
+          >
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group form-group--half">
+          <label for="modal-app-category">Lĩnh vực <span class="required">*</span></label>
+          <select id="modal-app-category" formControlName="category" class="form-select">
+            <option value="Sản phẩm điện tử">Sản phẩm điện tử</option>
+            <option value="Bán lẻ">Bán lẻ</option>
+            <option value="Dịch vụ">Dịch vụ</option>
+            <option value="Gia dụng">Gia dụng</option>
+          </select>
+        </div>
+
+        <div class="form-group form-group--half">
+          <label for="modal-app-status">Trạng thái <span class="required">*</span></label>
+          <select id="modal-app-status" formControlName="status" class="form-select">
+            <option value="Đang sử dụng">Đang sử dụng</option>
+            <option value="Tạm khóa">Tạm khóa</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group form-group--half">
+          <label for="modal-app-users">Số người dùng</label>
+          <input
+            type="number"
+            id="modal-app-users"
+            formControlName="userCount"
+            class="form-input"
+            placeholder="100"
+          >
+        </div>
+
+        <div class="form-group form-group--half">
+          <label for="modal-app-scripts">Số kịch bản</label>
+          <input
+            type="text"
+            id="modal-app-scripts"
+            formControlName="scriptCount"
+            class="form-input"
+            placeholder="01"
+          >
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Kênh tương tác</label>
+        <div class="checkbox-group">
+          <label class="checkbox-label">
+            <input type="checkbox" formControlName="facebookChannel">
+            <span>Facebook</span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" formControlName="webChannel">
+            <span>Website</span>
+          </label>
+        </div>
+      </div>
+
+      <footer class="modal-card__footer">
+        <button type="button" class="btn btn--secondary" (click)="onClose()">Hủy</button>
+        <button type="submit" class="btn btn--solid-red">{{ isEditMode ? 'Lưu thay đổi' : 'Thêm mới' }}</button>
+      </footer>
+    </form>
+  </div>
+</div>

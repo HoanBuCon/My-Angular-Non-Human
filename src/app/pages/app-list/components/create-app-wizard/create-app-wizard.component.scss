@@ -1,0 +1,910 @@
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+
+$border-radius-base: $radius-md;
+
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+  flex: 1;
+}
+
+.create-app-layout {
+  display: flex;
+  flex-direction: row;
+  min-height: calc(100vh - 44px);
+  width: 100%;
+  background-color: $white;
+}
+
+// 1. LEFT STEPPER COLUMN
+.create-app-stepper {
+  width: 270px;
+  flex-shrink: 0;
+  padding: $spacing-2xl $spacing-xl;
+  border-right: none;
+  background-color: $white;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 4px 24px #5655D23D;
+  position: relative;
+  z-index: 10;
+}
+
+.create-stepper-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.stepper-back-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  color: $bg-3;
+  transition: all $transition-fast;
+
+  svg {
+    stroke: $bg-3;
+    transition: stroke $transition-fast;
+  }
+
+  &:hover {
+    transform: scale(1.08);
+    svg {
+      stroke: $primary-1;
+    }
+  }
+}
+
+.stepper-header-title {
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  color: $text-primary;
+  margin: 0;
+}
+
+.stepper-timeline {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  padding-left: 2px;
+  width: 100%;
+}
+
+.stepper-node {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  user-select: none;
+  width: 100%;
+  padding: 6px 0;
+  transition: all $transition-fast;
+
+  &:hover:not(.stepper-node--active):not(.stepper-node--completed) {
+    .stepper-icon-circle {
+      border-color: $secondary-2;
+      background-color: rgba($secondary-1, 0.08);
+      color: $secondary-1;
+
+      svg {
+        stroke: $secondary-1;
+      }
+    }
+
+    .stepper-label-text {
+      color: $secondary-1;
+    }
+  }
+
+  &--active {
+    .stepper-icon-circle {
+      background-color: $secondary-1;
+      border-color: $secondary-1;
+      box-shadow: 0 4px 12px rgba(86, 128, 249, 0.35);
+      color: $white;
+
+      svg {
+        stroke: $white;
+      }
+    }
+
+    .stepper-label-text {
+      color: $secondary-1;
+      font-weight: $font-weight-bold;
+    }
+  }
+
+  &--completed {
+    .stepper-icon-circle {
+      background-color: $secondary-1;
+      border-color: $secondary-1;
+      box-shadow: 0 2px 8px rgba(86, 128, 249, 0.2);
+      color: $white;
+
+      svg {
+        stroke: $white;
+      }
+    }
+
+    .stepper-label-text {
+      color: $secondary-1;
+      font-weight: $font-weight-semibold;
+    }
+  }
+}
+
+.stepper-icon-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid $bg-5;
+  background-color: #F8F9FC;
+  color: $bg-3;
+  transition: all $transition-fast;
+  flex-shrink: 0;
+
+  svg {
+    stroke: $bg-3;
+    transition: stroke $transition-fast;
+  }
+
+  &--active {
+    background-color: $secondary-1 !important;
+    border-color: $secondary-1 !important;
+    box-shadow: 0 4px 12px rgba(86, 128, 249, 0.35) !important;
+    color: $white !important;
+
+    svg {
+      stroke: $white !important;
+    }
+  }
+}
+
+.stepper-connector-line {
+  width: 2px;
+  height: 36px;
+  background-color: $bg-5;
+  margin: 2px 0 2px 17px;
+  transition: background-color $transition-fast;
+
+  &--active {
+    background-color: $secondary-1;
+  }
+}
+
+.stepper-label {
+  display: flex;
+  align-items: center;
+}
+
+.stepper-label-text {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $bg-3;
+  transition: color $transition-fast;
+  white-space: nowrap;
+
+  &--active {
+    color: $secondary-1 !important;
+    font-weight: $font-weight-bold !important;
+  }
+}
+
+// 2. RIGHT FORM CONTAINER
+.create-app-main {
+  flex: 1;
+  min-width: 0;
+  padding: 44px 56px 60px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: $white;
+}
+
+.create-app-title {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  color: $text-primary;
+  margin: 0 0 28px 0;
+}
+
+.create-app-form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xl;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.create-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  width: 100%;
+}
+
+.form-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+
+  &--full {
+    grid-column: 1 / -1;
+  }
+}
+
+.field-label {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  color: $text-secondary;
+
+  .required {
+    color: $primary-1;
+    margin-left: 2px;
+  }
+}
+
+.field-input-box {
+  display: flex;
+  align-items: center;
+  height: 42px;
+  border: 1px solid $bg-5;
+  border-radius: $border-radius-base;
+  background-color: #F4F7FC;
+  padding: 0 14px;
+  transition: all $transition-fast;
+  position: relative;
+
+  &:focus-within {
+    border-color: $secondary-1;
+    background-color: $white;
+    box-shadow: 0 0 0 2px rgba(86, 128, 249, 0.1);
+  }
+}
+
+.field-lead-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+
+  img, svg {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    display: block;
+  }
+}
+
+.field-divider {
+  width: 1px;
+  height: 22px;
+  background-color: $bg-5;
+  margin: 0 12px;
+  flex-shrink: 0;
+}
+
+.field-input {
+  flex: 1;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: $font-family-primary;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $text-primary;
+  min-width: 0;
+
+  &::placeholder {
+    color: $bg-3;
+  }
+}
+
+.field-select-box {
+  background-color: $white;
+  cursor: pointer;
+}
+
+.field-select {
+  flex: 1;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: $font-family-primary;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $text-primary;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  min-width: 0;
+
+  &--placeholder {
+    color: $bg-3;
+  }
+
+  option {
+    color: $text-primary;
+    background-color: $white;
+
+    &[disabled] {
+      color: $bg-3;
+    }
+  }
+}
+
+.field-trail-arrow {
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  margin-left: 8px;
+  color: $bg-3;
+}
+
+.field-textarea {
+  width: 100%;
+  min-height: 110px;
+  padding: 12px 14px;
+  border: 1px solid $bg-5;
+  border-radius: $border-radius-base;
+  font-family: $font-family-primary;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $text-primary;
+  outline: none;
+  resize: vertical;
+  line-height: 1.5;
+  background-color: $white;
+  transition: all $transition-normal;
+
+  &:focus {
+    border-color: $secondary-1;
+    box-shadow: 0 0 0 2px rgba(86, 128, 249, 0.1);
+  }
+
+  &::placeholder {
+    color: $bg-3;
+  }
+}
+
+.create-form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 18px;
+  width: 100%;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: $font-family-primary;
+  cursor: pointer;
+  transition: all $transition-normal;
+  border: 1px solid transparent;
+
+  &--form-action {
+    min-width: 130px;
+    height: 40px;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    border-radius: $border-radius-base;
+  }
+
+  &--outline-red {
+    background-color: transparent;
+    color: $primary-1;
+    border: 1.25px solid $primary-1;
+
+    &:hover {
+      background-color: rgba(238, 0, 51, 0.05);
+    }
+  }
+
+  &--solid-red {
+    background-color: $primary-1;
+    color: $white;
+    border: 1px solid $primary-1;
+
+    &:hover {
+      background-color: $primary-4;
+      border-color: $primary-4;
+    }
+  }
+
+  &--solid-pink {
+    background-color: $primary-2;
+    color: $white;
+    border: 1px solid $primary-2;
+
+    &:disabled,
+    &[disabled] {
+      background-color: $primary-2;
+      border-color: $primary-2;
+      color: $white;
+      cursor: not-allowed;
+      opacity: 0.85;
+    }
+
+    &:not(:disabled) {
+      background-color: $primary-1;
+      border-color: $primary-1;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $primary-4;
+        border-color: $primary-4;
+      }
+    }
+  }
+}
+
+// STEP 2: THÊM NGƯỜI SỬ DỤNG
+.assign-search-card {
+  background-color: $white;
+  border: 1px solid $bg-5;
+  border-radius: $radius-lg;
+  padding: $spacing-lg $spacing-xl;
+  width: 100%;
+  margin-bottom: $spacing-2xl;
+  position: relative;
+  z-index: 2;
+  box-shadow: $shadow-card;
+}
+
+.assign-search-grid {
+  display: flex;
+  align-items: flex-end;
+  gap: $spacing-lg;
+  width: 100%;
+}
+
+.assign-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+
+  &--search {
+    flex: 1.8;
+  }
+
+  &--role {
+    flex: 1.1;
+  }
+}
+
+.assign-label {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  color: $bg-2;
+}
+
+.assign-input-box {
+  display: flex;
+  align-items: center;
+  height: 42px;
+  border: 1px solid $bg-5;
+  border-radius: $radius-md;
+  background-color: $white;
+  padding: 0 $spacing-sm;
+  gap: $spacing-sm;
+  transition: all $transition-fast;
+
+  &:focus-within {
+    border-color: $secondary-1;
+    box-shadow: 0 0 0 2px rgba(86, 128, 249, 0.1);
+  }
+}
+
+.assign-avatar-circle {
+  width: 26px;
+  height: 26px;
+  border-radius: $radius-round;
+  background-color: $info-3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: $secondary-1;
+}
+
+.assign-input {
+  flex: 1;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: $font-family-primary;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $bg-1;
+  min-width: 0;
+
+  &::placeholder {
+    color: $bg-3;
+  }
+}
+
+.assign-select-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 42px;
+  border: 1px solid $bg-5;
+  border-radius: $radius-md;
+  background-color: $white;
+  padding: 0 $spacing-md;
+  transition: all $transition-fast;
+
+  &:focus-within {
+    border-color: $secondary-1;
+    box-shadow: 0 0 0 2px rgba(86, 128, 249, 0.1);
+  }
+}
+
+.assign-select {
+  flex: 1;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: $font-family-primary;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $bg-1;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  min-width: 0;
+
+  &--placeholder {
+    color: $bg-3;
+  }
+
+  option {
+    color: $bg-1;
+    background-color: $white;
+
+    &[disabled] {
+      color: $bg-3;
+    }
+  }
+}
+
+.assign-select-arrow {
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  margin-left: $spacing-xs;
+  color: $bg-3;
+}
+
+.assign-btn-col {
+  display: flex;
+  align-items: flex-end;
+}
+
+.assign-add-btn {
+  min-width: 90px;
+  height: 42px;
+  padding: 0 $spacing-xl;
+  border: 1px solid $bg-5;
+  border-radius: $radius-md;
+  background-color: $bg-7;
+  font-family: $font-family-primary;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $bg-3;
+  cursor: not-allowed;
+  transition: all $transition-normal;
+
+  &--active,
+  &:not(:disabled) {
+    background-color: $bg-7;
+    border-color: $bg-5;
+    color: $bg-1;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $secondary-1;
+      border-color: $secondary-1;
+      color: $white;
+    }
+  }
+}
+
+// Assigned Users Table
+.app-table-wrapper {
+  background: $white;
+  border: 1px solid $bg-7;
+  border-radius: $radius-md;
+  overflow: hidden;
+}
+
+.assign-table-wrapper {
+  margin-bottom: $spacing-2xl;
+  position: relative;
+  z-index: 2;
+  box-shadow: $shadow-card;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.app-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: $font-size-sm;
+
+  th, td {
+    padding: $spacing-md $spacing-lg;
+    vertical-align: middle;
+  }
+
+  thead {
+    background-color: $bg-7;
+    border-bottom: 1px solid $bg-7;
+
+    .table-title-row {
+      background-color: $bg-7;
+      border-bottom: 1px solid $bg-7;
+
+      th {
+        font-weight: $font-weight-bold;
+        color: $bg-2;
+        font-size: $font-size-md;
+        padding: $spacing-md $spacing-lg $spacing-sm $spacing-lg;
+        background-color: $bg-7;
+        border-right: 1px solid $bg-7;
+
+        &:last-child {
+          border-right: none;
+        }
+      }
+    }
+
+    .table-filter-row {
+      background-color: $white;
+
+      th {
+        padding: 6px $spacing-lg $spacing-md $spacing-lg;
+        background-color: $white;
+        border-right: 1px solid $bg-7;
+
+        &:last-child {
+          border-right: none;
+        }
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px solid $bg-7;
+      transition: background-color $transition-fast;
+
+      &:hover {
+        background-color: $bg-6;
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    td {
+      font-size: $font-size-md;
+      font-weight: $font-weight-medium;
+      color: $bg-2;
+      border-right: 1px solid $bg-7;
+
+      &.col-name {
+        font-size: $font-size-md;
+        font-weight: $font-weight-bold;
+        color: $bg-1;
+      }
+
+      &.col-stt,
+      &.col-email,
+      &.col-role {
+        font-size: $font-size-md;
+        font-weight: $font-weight-medium;
+        color: $bg-2;
+      }
+
+      &:last-child {
+        border-right: none;
+      }
+    }
+  }
+}
+
+.filter-box {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.input-with-icon,
+.select-with-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  .filter-search-icon {
+    position: absolute;
+    left: 8px;
+    pointer-events: none;
+    color: $bg-3;
+  }
+}
+
+.filter-input {
+  width: 100%;
+  height: 32px;
+  padding: $spacing-xs $spacing-sm $spacing-xs 28px;
+  font-family: $font-family-primary;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  color: $text-primary;
+  background-color: $white;
+  border: 1px solid $bg-5;
+  border-radius: $radius-md;
+  outline: none;
+  transition: border-color $transition-normal;
+
+  &::placeholder {
+    color: $bg-3;
+  }
+
+  &:focus {
+    border-color: $primary-1;
+  }
+}
+
+.filter-select {
+  width: 100%;
+  height: 32px;
+  padding: $spacing-xs $spacing-sm $spacing-xs 28px;
+  font-family: $font-family-primary;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  color: $text-primary;
+  background-color: $white;
+  border: 1px solid $bg-5;
+  border-radius: $radius-md;
+  outline: none;
+  cursor: pointer;
+  transition: border-color $transition-normal;
+
+  &--plain {
+    padding-left: $spacing-sm;
+  }
+
+  &:focus {
+    border-color: $primary-1;
+  }
+}
+
+.btn-sort {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 32px;
+  background-color: $white;
+  border: 1px solid $bg-5;
+  border-radius: $radius-md;
+  color: $bg-3;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all $transition-normal;
+
+  &:hover {
+    border-color: $primary-1;
+    color: $primary-1;
+  }
+}
+
+.col-stt {
+  width: 70px;
+}
+
+.col-name {
+  width: 25%;
+}
+
+.col-email {
+  width: 35%;
+}
+
+.col-role {
+  width: 25%;
+}
+
+.col-actions {
+  width: 80px;
+  text-align: center;
+}
+
+.assign-role-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  background: transparent;
+  padding: 0;
+
+  &--admin {
+    color: $failure-1;
+  }
+
+  &--consultant {
+    color: $secondary-1;
+  }
+
+  &--staff {
+    color: $bg-2;
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 36px $spacing-lg;
+  color: $bg-3;
+  font-style: italic;
+}
+
+.text-center {
+  text-align: center;
+}
+
+// Watermark Graphic
+.create-app-watermark {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  pointer-events: none;
+  z-index: 1;
+  user-select: none;
+  opacity: 0.9;
+  max-width: 100%;
+  overflow: hidden;
+
+  .create-app-watermark-img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    max-height: 280px;
+    object-fit: contain;
+    pointer-events: none;
+  }
+}
